@@ -1,0 +1,15 @@
+[submodule "lpmbm"]
+	path = lpmbm
+	url = https://github.com/danielvilas/lpmbm.git
+[submodule "bm_node"]
+	path = bm_node
+	url = https://github.com/danielvilas/bm_node.git
+[submodule "bm_java"]
+	path = bm_java
+	url = https://github.com/danielvilas/bm_java.git
+[submodule "bm_c"]
+	path = bm_c
+	url = https://github.com/danielvilas/bm_c.git
+[submodule "bm_python"]
+	path = bm_python
+	url = https://github.com/danielvilas/bm_python.git
