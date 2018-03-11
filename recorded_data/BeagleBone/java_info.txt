@@ -1,0 +1,24 @@
+JAVA_KAFKA_1
+Total time: 142709 ms
+Run Time: 143899 ms
+Monitored data written to: /tmp/monitor_java_4036.out
+
+JAVA_KAFKA_2
+Total time: 143118 ms
+Run Time: 144251 ms
+Monitored data written to: /tmp/monitor_java_4078.out
+
+JAVA_KAFKA_3
+Total time: 140998 ms
+Run Time: 142130 ms
+Monitored data written to: /tmp/monitor_java_4110.out
+
+JAVA_KAFKA_4
+Total time: 143178 ms
+Run Time: 144331 ms
+Monitored data written to: /tmp/monitor_java_4139.out
+
+JAVA_KAFKA_5
+Total time: 139416 ms
+Run Time: 140604 ms
+Monitored data written to: /tmp/monitor_java_4168.out

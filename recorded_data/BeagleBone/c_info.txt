@@ -1,0 +1,24 @@
+C_KAFKA_1
+Time: 18430.396484 ms
+Run Time: 18629 ms
+Monitored data written to: /tmp/monitor_bmc_full_2216.out
+
+C_KAFKA_2
+Time: 18402.916016 ms
+Run Time: 18622 ms
+Monitored data written to: /tmp/monitor_bmc_full_2237.out
+
+C_KAFKA_3
+Time: 18421.931641 ms
+Run Time: 18630 ms
+Monitored data written to: /tmp/monitor_bmc_full_2266.out
+
+C_KAFKA_4
+Time: 18421.703125 ms
+Run Time: 18628 ms
+Monitored data written to: /tmp/monitor_bmc_full_2297.out
+
+C_KAFKA_5
+Time: 18486.599609 ms
+Run Time: 18728 ms
+Monitored data written to: /tmp/monitor_bmc_full_2323.out

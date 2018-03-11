@@ -1,0 +1,24 @@
+PYTHON_KAFKA_1
+Time: 518763.119329ms
+Run Time: 539896 ms
+Monitored data written to: /tmp/monitor_python3.6_4228.out
+
+PYTHON_KAFKA_2
+Time: 517767.17909800005ms
+Run Time: 533169 ms
+Monitored data written to: /tmp/monitor_python3.6_4269.out
+
+PYTHON_KAFKA_3
+Time: 517712.3913759999ms
+Run Time: 532475 ms
+Monitored data written to: /tmp/monitor_python3.6_4297.out
+
+PYTHON_KAFKA_4
+Time: 518597.76855299994ms
+Run Time: 534410 ms
+Monitored data written to: /tmp/monitor_python3.6_1940.out
+
+PYTHON_KAFKA_5
+Time: 514603.3230390001ms
+Run Time: 529274 ms
+Monitored data written to: /tmp/monitor_python3.6_1962.out
