@@ -22,3 +22,84 @@ JAVA_KAFKA_5
 Total time: 85517 ms
 Run Time: 86163 ms
 Monitored data written to: /tmp/monitor_java_764.out
+
+-----------
+
+JAVA_MQTT_1
+Total time: 113686 ms
+Run Time: 115143 ms
+Monitored data written to: /tmp/monitor_java_1322.out
+
+JAVA_MQTT_2
+Total time: 108883 ms
+Run Time: 109522 ms
+Monitored data written to: /tmp/monitor_java_1387.out
+
+JAVA_MQTT_3
+Total time: 108415 ms
+Run Time: 109017 ms
+Monitored data written to: /tmp/monitor_java_1435.out
+
+JAVA_MQTT_4
+Total time: 108081 ms
+Run Time: 108766 ms
+Monitored data written to: /tmp/monitor_java_1488.out
+
+JAVA_MQTT_5
+Total time: 107571 ms
+Run Time: 108259 ms
+Monitored data written to: /tmp/monitor_java_1563.out
+
+-----------
+
+JAVA_REST_1
+Total time: 122896 ms
+Run Time: 123505 ms
+Monitored data written to: /tmp/monitor_java_1665.out
+
+JAVA_REST_2
+Total time: 122177 ms
+Run Time: 122825 ms
+Monitored data written to: /tmp/monitor_java_1713.out
+
+JAVA_REST_3
+Total time: 122675 ms
+Run Time: 123256 ms
+Monitored data written to: /tmp/monitor_java_1757.out
+
+JAVA_REST_4
+Total time: 123497 ms
+Run Time: 124135 ms
+Monitored data written to: /tmp/monitor_java_1812.out
+
+JAVA_REST_5
+Total time: 120741 ms
+Run Time: 121333 ms
+Monitored data written to: /tmp/monitor_java_1859.out
+
+-----------
+
+JAVA_SOAP_1
+Total time: 131935 ms
+Run Time: 133901 ms
+Monitored data written to: /tmp/monitor_java_2018.out
+
+JAVA_SOAP_2
+Total time: 129744 ms
+Run Time: 131686 ms
+Monitored data written to: /tmp/monitor_java_2053.out
+
+JAVA_SOAP_3
+Total time: 130969 ms
+Run Time: 132889 ms
+Monitored data written to: /tmp/monitor_java_2100.out
+
+JAVA_SOAP_4
+Total time: 130792 ms
+Run Time: 132722 ms
+Monitored data written to: /tmp/monitor_java_2156.out
+
+JAVA_SOAP_5
+Total time: 130173 ms
+Run Time: 132118 ms
+Monitored data written to: /tmp/monitor_java_2240.out
