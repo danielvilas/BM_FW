@@ -14,7 +14,7 @@ fprintf("\tRun: %f mAmps\n",data.runCurrentAvg);
 fprintf("\tEnergy: %f Jouls\n",data.energyAvg);
 fprintf("\tEnergy: %f mAs\n",data.mAmpsSAvg);
 fprintf("\tEnergy: %f mAh\n",data.mAmpsSAvg/3600);
-fprintf("\tTime: %f ms\n",data.time);
-
+fprintf("\tTime: %i ms\n",data.time);
+fprintf("\tTime: %s\n",data.timeStr);
 end
 

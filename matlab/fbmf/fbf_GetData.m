@@ -41,11 +41,18 @@ energyAvg=sum(data(3,:))/i;
 mAmpsSAvg=sum(data(4,:))/i;
 time=t3(4)-t3(3);
 
+millis = mod(time, 1000);
+t = fix(time/1000);
+seconds = mod(t,60);
+minutes=fix(t/60);
+
+timeStr = sprintf("%im %is %ims",minutes,seconds,millis);
+
 data = struct('platform',platform,'lang',lang,'protocol',protocol,'memAvg', ... 
                 memAvg,'maxMem',maxMem,'cpuAvg',cpuAvg,'maxCpu',maxCpu, ...
             'outAvg',outAvg,'inAvg',inAvg,'preCurrentAvg',preCurrentAvg,...
             'runCurrentAvg',runCurrentAvg,'energyAvg',energyAvg,...
-            'mAmpsSAvg',mAmpsSAvg,'mAmpsHAvg',mAmpsSAvg/3600,'time',time);
+            'mAmpsSAvg',mAmpsSAvg,'mAmpsHAvg',mAmpsSAvg/3600,'time',time, 'timeStr',timeStr);
 
 end
 
