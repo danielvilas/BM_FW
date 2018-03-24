@@ -1,27 +1,28 @@
 PYTHON_KAFKA_1
-Time: 360957.43596ms
-Run Time: 363577 ms
-Monitored data written to: /tmp/monitor_python3.6_1896.out
+Messages: 2520
+Time: 369767.72483799997ms
+Run Time: 372229 ms
+Monitored data written to: /tmp/monitor_python3.6_2518.out
 
 PYTHON_KAFKA_2
-Time: 361401.86186299997ms
-Run Time: 363755 ms
-Monitored data written to: /tmp/monitor_python3.6_1940.out
+Time: 366545.173652ms
+Run Time: 369126 ms
+Monitored data written to: /tmp/monitor_python3.6_2575.out
 
 PYTHON_KAFKA_3
-Time: 365803.365584ms
-Run Time: 368369 ms
-Monitored data written to: /tmp/monitor_python3.6_1970.out
+Time: 364594.43846699997ms
+Run Time: 367219 ms
+Monitored data written to: /tmp/monitor_python3.6_2636.out
 
 PYTHON_KAFKA_4
-Time: 363274.665217ms
-Run Time: 365672 ms
-Monitored data written to: /tmp/monitor_python3.6_2034.out
+Time: 361756.225522ms
+Run Time: 364108 ms
+Monitored data written to: /tmp/monitor_python3.6_2707.out
 
 PYTHON_KAFKA_5
-Time: 365705.440214ms
-Run Time: 368421 ms
-Monitored data written to: /tmp/monitor_python3.6_2087.out
+Time: 361838.22670700005ms
+Run Time: 364419 ms
+Monitored data written to: /tmp/monitor_python3.6_2769.out
 
 --------------
 
@@ -81,26 +82,23 @@ Monitored data written to: /tmp/monitor_python3.6_2823.out
 -------------
 
 PYTHON_SOAP_1
-Time: 387087.04885200004ms
-Run Time: 402242 ms
-Monitored data written to: /tmp/monitor_python3.6_2945.out
+Time: 388577.29615300003ms
+Run Time: 404003 ms
+Monitored data written to: /tmp/monitor_python3.6_2855.out
 
 PYTHON_SOAP_2
-Time: 385539.846484ms
-Run Time: 400527 ms
-Monitored data written to: /tmp/monitor_python3.6_2975.out
+Time: 389395.993212ms
+Run Time: 404204 ms
+Monitored data written to: /tmp/monitor_python3.6_2925.out
 
 PYTHON_SOAP_3
-Time: 387856.88003999996ms
-Run Time: 403055 ms
-Monitored data written to: /tmp/monitor_python3.6_3025.out
+Time: 389038.028439ms
+Run Time: 403920 ms
+Monitored data written to: /tmp/monitor_python3.6_2984.out
 
 PYTHON_SOAP_4
-Time: 384946.042159ms
-Run Time: 412757 ms
-Monitored data written to: /tmp/monitor_python3.6_758.out
+Time: 386743.47219600005ms
+Run Time: 401770 ms
+Monitored data written to: /tmp/monitor_python3.6_3051.out
 
 PYTHON_SOAP_5
-Time: 388635.59778400004ms
-Run Time: 405264 ms
-Monitored data written to: /tmp/monitor_python3.6_814.out
