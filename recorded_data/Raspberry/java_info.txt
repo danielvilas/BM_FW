@@ -68,8 +68,8 @@ Run Time: 123256 ms
 Monitored data written to: /tmp/monitor_java_1757.out
 
 JAVA_REST_4
-Total time: 123497 ms
-Run Time: 124135 ms
+Total time: 123534 ms
+Run Time: 124921 ms
 Monitored data written to: /tmp/monitor_java_1812.out
 
 JAVA_REST_5

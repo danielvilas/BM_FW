@@ -94,3 +94,13 @@ PYTHON_SOAP_3
 Time: 387856.88003999996ms
 Run Time: 403055 ms
 Monitored data written to: /tmp/monitor_python3.6_3025.out
+
+PYTHON_SOAP_4
+Time: 384946.042159ms
+Run Time: 412757 ms
+Monitored data written to: /tmp/monitor_python3.6_758.out
+
+PYTHON_SOAP_5
+Time: 388635.59778400004ms
+Run Time: 405264 ms
+Monitored data written to: /tmp/monitor_python3.6_814.out

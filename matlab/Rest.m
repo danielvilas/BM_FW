@@ -6,7 +6,7 @@ doPlotNode=false;
 
 close all;
 detected_error=0;
-%rpi_C_Rest= fbf_GetData('Raspberry','C','Rest',detected_error, doPlotC);
+rpi_C_Rest= fbf_GetData('Raspberry','C','Rest',detected_error, doPlotC);
 disp('end C')
 rpi_Java_Rest= fbf_GetData('Raspberry','Java','Rest',detected_error, doPlotJava);
 disp('end Java')
@@ -44,7 +44,7 @@ disp('end Node')
 %PlotData('BeagleBone','Python','Rest');
 
 
-%fbf_PrintData(rpi_C_Rest);
+fbf_PrintData(rpi_C_Rest);
 fbf_PrintData(rpi_Java_Rest);
 fbf_PrintData(rpi_Python_Rest);
 fbf_PrintData(rpi_Node_Rest);

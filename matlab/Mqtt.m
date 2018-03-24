@@ -6,7 +6,7 @@ doPlotNode=false;
 
 close all;
 detected_error=0;
-%rpi_C_Mqtt= fbf_GetData('Raspberry','C','Mqtt',detected_error, doPlotC);
+rpi_C_Mqtt= fbf_GetData('Raspberry','C','Mqtt',detected_error, doPlotC);
 disp('end C')
 rpi_Java_Mqtt= fbf_GetData('Raspberry','Java','Mqtt',detected_error, doPlotJava);
 disp('end Java')
@@ -44,7 +44,7 @@ disp('end Node')
 %PlotData('BeagleBone','Python','Mqtt');
 
 
-%fbf_PrintData(rpi_C_Mqtt);
+fbf_PrintData(rpi_C_Mqtt);
 fbf_PrintData(rpi_Java_Mqtt);
 fbf_PrintData(rpi_Python_Mqtt);
 fbf_PrintData(rpi_Node_Mqtt);
