@@ -6,7 +6,7 @@ doPlotNode=false;
 
 close all;
 detected_error=0;
-%rpi_C_Soap= fbf_GetData('Raspberry','C','Soap',detected_error, doPlotC);
+rpi_C_Soap= fbf_GetData('Raspberry','C','Soap',detected_error, doPlotC);
 disp('end C')
 rpi_Java_Soap= fbf_GetData('Raspberry','Java','Soap',detected_error, doPlotJava);
 disp('end Java')
@@ -44,7 +44,7 @@ disp('end Node')
 %PlotData('BeagleBone','Python','Soap');
 
 
-%fbf_PrintData(rpi_C_Soap);
+fbf_PrintData(rpi_C_Soap);
 fbf_PrintData(rpi_Java_Soap);
 fbf_PrintData(rpi_Python_Soap);
 fbf_PrintData(rpi_Node_Soap);

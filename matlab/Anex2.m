@@ -26,14 +26,21 @@ head= "%% !TeX encoding = UTF-8\n";
 head= [head  "%% !TeX spellcheck = en_GB\n"];
 head= [head  "%% !TeX root = A1_MethodMeasureEfficenciFogComputing.tex\n"];
 head= [head  "\\section*{Annex II - Performance per Language}\n"];
+head= join(head);
 
-tablehead= ["\\begin{table}[h]\n"];
+tablehead= "\\begin{table}[h]\n";
 tablehead= [tablehead  "	\\caption{%s}\n"];
+tablehead=join(tablehead);
 
-tableend=["	\\label{tab:%s}\n"];
+tableend="	\\label{tab:%s}\n";
 tableend= [tableend  "\\end{table}\n"];
+tableend=join(tableend);
 
 fprintf(fid,head);
+
+fprintf(fid,tablehead,"Raspberry C Comparative");
+fbf_PrintTextTable([rpi_C_Kafka rpi_C_Mqtt rpi_C_Rest rpi_C_Soap],fid);
+fprintf(fid,tableend,"rpiJava");
 
 fprintf(fid,tablehead,"Raspberry Java Comparative");
 fbf_PrintTextTable([rpi_Java_Kafka rpi_Java_Mqtt rpi_Java_Rest rpi_Java_Soap],fid);
@@ -45,7 +52,7 @@ fbf_PrintTextTable([rpi_Node_Kafka rpi_Node_Mqtt rpi_Node_Rest rpi_Node_Soap],fi
 fprintf(fid,tableend,"rpiNode");
 
 fprintf(fid,tablehead,"Raspberry Python Comparative");
-fbf_PrintTextTable([rpi_Python_Kafka rpi_Python_Mqtt rpi_Python_Rest],fid);
+fbf_PrintTextTable([rpi_Python_Kafka rpi_Python_Mqtt rpi_Python_Rest rpi_Python_Soap],fid);
 fprintf(fid,tableend,"rpiPython");
 
 
