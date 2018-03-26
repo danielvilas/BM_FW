@@ -1,24 +1,107 @@
 NODE_KAFKA_1
-Time: 843860.741026 ms
-Run Time: 846516 ms
-Monitored data written to: /tmp/monitor_node_3770.out
+Time: 288731.329033 ms
+Run Time: 291229 ms
+Monitored data written to: /tmp/monitor_node_1951.out
 
 NODE_KAFKA_2
-Time: 842748.396455 ms
-Run Time: 845399 ms
-Monitored data written to: /tmp/monitor_node_3803.out
+Time: 284267.12753 ms
+Run Time: 286782 ms
+Monitored data written to: /tmp/monitor_node_1969.out
 
 NODE_KAFKA_3
-Time: 842821.922162 ms
-Run Time: 845435 ms
-Monitored data written to: /tmp/monitor_node_3833.out
+Time: 285709.860526 ms
+Run Time: 288215 ms
+Monitored data written to: /tmp/monitor_node_1993.out
 
 NODE_KAFKA_4
-Time: 841996.265175 ms
-Run Time: 844655 ms
-Monitored data written to: /tmp/monitor_node_3885.out
+Time: 286683.010159 ms
+Run Time: 289195 ms
+Monitored data written to: /tmp/monitor_node_2019.out
 
 NODE_KAFKA_5
-Time: 841980.756878 ms
-Run Time: 844624 ms
-Monitored data written to: /tmp/monitor_node_3916.out
+Time: 291667.536226 ms
+Run Time: 294267 ms
+Monitored data written to: /tmp/monitor_node_2041.out
+
+------------
+
+NODE_MQTT_1
+Time: 270140.900211 ms
+Run Time: 272607 ms
+Monitored data written to: /tmp/monitor_node_2089.out
+
+NODE_MQTT_2
+Time: 269427.41482 ms
+Run Time: 271716 ms
+Monitored data written to: /tmp/monitor_node_2115.out
+
+NODE_MQTT_3
+Time: 269995.939769 ms
+Run Time: 272281 ms
+Monitored data written to: /tmp/monitor_node_2139.out
+
+NODE_MQTT_4
+Time: 271946.310462 ms
+Run Time: 274242 ms
+Monitored data written to: /tmp/monitor_node_2168.out
+
+NODE_MQTT_5
+Time: 272105.608844 ms
+Run Time: 274389 ms
+Monitored data written to: /tmp/monitor_node_2194.out
+
+----------
+
+NODE_REST_1
+Time: 298059.807175 ms
+Run Time: 299982 ms
+Monitored data written to: /tmp/monitor_node_2233.out
+
+NODE_REST_2
+Time: 297890.299894 ms
+Run Time: 299660 ms
+Monitored data written to: /tmp/monitor_node_2252.out
+
+NODE_REST_3
+Time: 296520.308049 ms
+Run Time: 298265 ms
+Monitored data written to: /tmp/monitor_node_2276.out
+
+NODE_REST_4
+Time: 296939.601737 ms
+Run Time: 298688 ms
+Monitored data written to: /tmp/monitor_node_2302.out
+
+NODE_REST_5
+Time: 296852.304165 ms
+Run Time: 298566 ms
+Monitored data written to: /tmp/monitor_node_2333.out
+
+---------
+
+NODE_SOAP_1
+Time: 320147.557644 ms
+Run Time: 325462 ms
+Monitored data written to: /tmp/monitor_node_2381.out
+
+
+NODE_SOAP_2
+Time: 321985.326427 ms
+Run Time: 326198 ms
+Monitored data written to: /tmp/monitor_node_2401.out
+
+NODE_SOAP_3
+Time: 319900.098102 ms
+Run Time: 324047 ms
+Monitored data written to: /tmp/monitor_node_2430.out
+
+NODE_SOAP_4
+Time: 319519.848039 ms
+Run Time: 323741 ms
+Monitored data written to: /tmp/monitor_node_2458.out
+
+NODE_SOAP_5
+Messages: 2520
+Time: 320136.879962 ms
+Run Time: 324387 ms
+Monitored data written to: /tmp/monitor_node_2484.out
