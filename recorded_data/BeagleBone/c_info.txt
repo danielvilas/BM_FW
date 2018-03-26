@@ -22,3 +22,79 @@ C_KAFKA_5
 Time: 18486.599609 ms
 Run Time: 18728 ms
 Monitored data written to: /tmp/monitor_bmc_full_2323.out
+
+--------
+
+C_MQTT_1
+Run Time: 22342 ms
+Monitored data written to: /tmp/monitor_bmc_full_2703.out
+
+C_MQTT_2
+Run Time: 24346 ms
+Monitored data written to: /tmp/monitor_bmc_full_2629.out
+
+C_MQTT_3
+Run Time: 21939 ms
+Monitored data written to: /tmp/monitor_bmc_full_2644.out
+
+C_MQTT_4
+Run Time: 22044 ms
+Monitored data written to: /tmp/monitor_bmc_full_2666.out
+
+C_MQTT_5
+Run Time: 22543 ms
+Monitored data written to: /tmp/monitor_bmc_full_2684.out
+
+--------
+
+C_REST_1
+Time: 24685.070312 ms
+Run Time: 24841 ms
+Monitored data written to: /tmp/monitor_bmc_full_2743.out
+
+C_REST_2
+Time: 23981.724609 ms
+Run Time: 24139 ms
+Monitored data written to: /tmp/monitor_bmc_full_2756.out
+
+C_REST_3
+Time: 23864.681641 ms
+Run Time: 24041 ms
+Monitored data written to: /tmp/monitor_bmc_full_2771.out
+
+C_REST_4
+Time: 23921.798828 ms
+Run Time: 24040 ms
+Monitored data written to: /tmp/monitor_bmc_full_2792.out
+
+C_REST_5
+Time: 23984.152344 ms
+Run Time: 24143 ms
+Monitored data written to: /tmp/monitor_bmc_full_2796.out
+
+--------
+
+C_SOAP_1
+Time: 27589.660156 ms
+Run Time: 27750 ms
+Monitored data written to: /tmp/monitor_bmc_full_2863.out
+
+C_SOAP_2
+Time: 27522.449219 ms
+Run Time: 27651 ms
+Monitored data written to: /tmp/monitor_bmc_full_2869.out
+
+C_SOAP_3
+Time: 29405.695312 ms
+Run Time: 29562 ms
+Monitored data written to: /tmp/monitor_bmc_full_2873.out
+
+C_SOAP_4
+Time: 28156.900391 ms
+Run Time: 28353 ms
+Monitored data written to: /tmp/monitor_bmc_full_2891.out
+
+C_SOAP_5
+Time: 28691.976562 ms
+Run Time: 28852 ms
+Monitored data written to: /tmp/monitor_bmc_full_2912.out
