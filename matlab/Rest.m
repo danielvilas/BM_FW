@@ -33,7 +33,7 @@ bbb_C_Rest= fbf_GetData('BeagleBone','C','Rest',detected_error, doPlotC);
 disp('end C')
 bbb_Java_Rest= fbf_GetData('BeagleBone','Java','Rest',detected_error, doPlotJava);
 disp('end Java')
-%bbb_Python_Rest= fbf_GetData('BeagleBone','Python','Rest',detected_error, doPlotPython);
+bbb_Python_Rest= fbf_GetData('BeagleBone','Python','Rest',detected_error, doPlotPython);
 disp('end Python')
 bbb_Node_Rest= fbf_GetData('BeagleBone','Node','Rest',detected_error, doPlotNode);
 disp('end Node')
@@ -51,5 +51,5 @@ fbf_PrintData(rpi_Node_Rest);
 
 fbf_PrintData(bbb_C_Rest);
 fbf_PrintData(bbb_Java_Rest);
-%fbf_PrintData(bbb_Python_Rest);
+fbf_PrintData(bbb_Python_Rest);
 fbf_PrintData(bbb_Node_Rest);

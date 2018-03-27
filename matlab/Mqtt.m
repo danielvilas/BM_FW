@@ -33,7 +33,7 @@ bbb_C_Mqtt= fbf_GetData('BeagleBone','C','Mqtt',detected_error, doPlotC);
 disp('end C')
 bbb_Java_Mqtt= fbf_GetData('BeagleBone','Java','Mqtt',detected_error, doPlotJava);
 disp('end Java')
-%bbb_Python_Mqtt= fbf_GetData('BeagleBone','Python','Mqtt',detected_error, doPlotPython);
+bbb_Python_Mqtt= fbf_GetData('BeagleBone','Python','Mqtt',detected_error, doPlotPython);
 disp('end Python')
 bbb_Node_Mqtt= fbf_GetData('BeagleBone','Node','Mqtt',detected_error, doPlotNode);
 disp('end Node')
@@ -51,5 +51,5 @@ fbf_PrintData(rpi_Node_Mqtt);
 
 fbf_PrintData(bbb_C_Mqtt);
 fbf_PrintData(bbb_Java_Mqtt);
-%fbf_PrintData(bbb_Python_Mqtt);
+fbf_PrintData(bbb_Python_Mqtt);
 fbf_PrintData(bbb_Node_Mqtt);

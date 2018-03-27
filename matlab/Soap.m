@@ -33,7 +33,7 @@ bbb_C_Soap= fbf_GetData('BeagleBone','C','Soap',detected_error, doPlotC);
 disp('end C')
 bbb_Java_Soap= fbf_GetData('BeagleBone','Java','Soap',detected_error, doPlotJava);
 disp('end Java')
-%bbb_Python_Soap= fbf_GetData('BeagleBone','Python','Soap',detected_error, doPlotPython);
+bbb_Python_Soap= fbf_GetData('BeagleBone','Python','Soap',detected_error, doPlotPython);
 disp('end Python')
 bbb_Node_Soap= fbf_GetData('BeagleBone','Node','Soap',detected_error, doPlotNode);
 disp('end Node')
@@ -51,5 +51,5 @@ fbf_PrintData(rpi_Node_Soap);
 
 fbf_PrintData(bbb_C_Soap);
 fbf_PrintData(bbb_Java_Soap);
-%fbf_PrintData(bbb_Python_Soap);
+fbf_PrintData(bbb_Python_Soap);
 fbf_PrintData(bbb_Node_Soap);

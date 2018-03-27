@@ -1,24 +1,104 @@
 PYTHON_KAFKA_1
-Time: 518763.119329ms
-Run Time: 539896 ms
-Monitored data written to: /tmp/monitor_python3.6_4228.out
+Time: 517129.538806ms
+Run Time: 532716 ms
+Monitored data written to: /tmp/monitor_python3.6_1798.out
 
 PYTHON_KAFKA_2
-Time: 517767.17909800005ms
-Run Time: 533169 ms
-Monitored data written to: /tmp/monitor_python3.6_4269.out
+Time: 520637.98378499993ms
+Run Time: 535422 ms
+Monitored data written to: /tmp/monitor_python3.6_1822.out
 
 PYTHON_KAFKA_3
-Time: 517712.3913759999ms
-Run Time: 532475 ms
-Monitored data written to: /tmp/monitor_python3.6_4297.out
+Time: 522000.006008ms
+Run Time: 536860 ms
+Monitored data written to: /tmp/monitor_python3.6_1857.out
 
 PYTHON_KAFKA_4
-Time: 518597.76855299994ms
-Run Time: 534410 ms
-Monitored data written to: /tmp/monitor_python3.6_1940.out
+Time: 519910.69113000005ms
+Run Time: 534825 ms
+Monitored data written to: /tmp/monitor_python3.6_1878.out
 
 PYTHON_KAFKA_5
-Time: 514603.3230390001ms
-Run Time: 529274 ms
-Monitored data written to: /tmp/monitor_python3.6_1962.out
+Time: 517573.64302399993ms
+Run Time: 532334 ms
+Monitored data written to: /tmp/monitor_python3.6_1910.out
+
+--------------
+
+PYHTON_MQTT_1
+Time: 478587.082161ms
+Run Time: 492339 ms
+Monitored data written to: /tmp/monitor_python3.6_1968.out
+
+PYTHON_MQTT_2
+Time: 477883.016188ms
+Run Time: 491801 ms
+Monitored data written to: /tmp/monitor_python3.6_1983.out
+
+PYTHON_MQTT_3
+Time: 486675.888082ms
+Run Time: 500738 ms
+Monitored data written to: /tmp/monitor_python3.6_1999.out
+
+PYTHON_MQTT_4
+Time: 476946.17779100005ms
+Run Time: 490793 ms
+Monitored data written to: /tmp/monitor_python3.6_2027.out
+
+PYTHON_MQTT_5
+Time: 480592.41537999996ms
+Run Time: 494488 ms
+Monitored data written to: /tmp/monitor_python3.6_2049.out
+
+------------
+
+PYTHON_REST_1
+Time: 556665.2674220001ms
+Run Time: 636559 ms
+Monitored data written to: /tmp/monitor_python3.6_2102.out
+
+PYTHON_REST_2
+Time: 567249.006118ms
+Run Time: 589737 ms
+Monitored data written to: /tmp/monitor_python3.6_2126.out
+
+PYTHON_REST_3
+Time: 555094.742128ms
+Run Time: 576167 ms
+Monitored data written to: /tmp/monitor_python3.6_2145.out
+
+PYTHON_REST_4
+Time: 551562.905775ms
+Run Time: 572325 ms
+Monitored data written to: /tmp/monitor_python3.6_2171.out
+
+PYTHON_REST_5
+Time: 557301.046758ms
+Run Time: 578049 ms
+Monitored data written to: /tmp/monitor_python3.6_2192.out
+
+-------------
+PYTHON_SOAP_1
+Time: 557870.049364ms
+Run Time: 586865 ms
+Monitored data written to: /tmp/monitor_python3.6_2243.out
+
+PYTHON_SOAP_2
+Time: 557626.558662ms
+Run Time: 584557 ms
+Monitored data written to: /tmp/monitor_python3.6_2262.out
+
+PYTHON_SOAP_3
+Time: 559681.228506ms
+Run Time: 586163 ms
+Monitored data written to: /tmp/monitor_python3.6_2279.out
+
+PYTHON_SOAP_4
+Time: 555184.240818ms
+Run Time: 581542 ms
+Monitored data written to: /tmp/monitor_python3.6_2299.out
+
+PYTHON_SOAP_5
+Time: 557672.295392ms
+Run Time: 583636 ms
+Monitored data written to: /tmp/monitor_python3.6_2324.out
