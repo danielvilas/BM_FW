@@ -47,12 +47,14 @@ seconds = mod(t,60);
 minutes=fix(t/60);
 
 timeStr = sprintf("%im %is %ims",minutes,seconds,millis);
-
+mAmpsHAvg=mAmpsSAvg/3600;
+powerEstimationHour = mAmpsHAvg/time*60*60*1000;
 data = struct('platform',platform,'lang',lang,'protocol',protocol,'memAvg', ... 
                 memAvg,'maxMem',maxMem,'cpuAvg',cpuAvg,'maxCpu',maxCpu, ...
             'outAvg',outAvg,'inAvg',inAvg,'preCurrentAvg',preCurrentAvg,...
             'runCurrentAvg',runCurrentAvg,'energyAvg',energyAvg,...
-            'mAmpsSAvg',mAmpsSAvg,'mAmpsHAvg',mAmpsSAvg/3600,'time',time, 'timeStr',timeStr);
+            'mAmpsSAvg',mAmpsSAvg,'mAmpsHAvg',mAmpsHAvg,'time',time,...
+            'timeStr',timeStr,'cycleTime',time,'powerEstimation',powerEstimationHour);
 
 end
 

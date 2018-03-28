@@ -15,6 +15,7 @@ fprintf("\tEnergy: %f Jouls\n",data.energyAvg);
 fprintf("\tEnergy: %f mAs\n",data.mAmpsSAvg);
 fprintf("\tEnergy: %f mAh\n",data.mAmpsSAvg/3600);
 fprintf("\tTime: %i ms\n",data.time);
-fprintf("\tTime: %s\n",data.timeStr);
+fprintf("\tCycle Time: %f ms\n",data.cycleTime);
+fprintf("\tPower Estimation: %f mAh\n",data.powerEstimation);
 end
 
