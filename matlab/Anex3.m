@@ -18,7 +18,7 @@ disp('Rest OK')
 if exist('rpi_Java_Soap','var')==0
   Soap
 end
-disp('Soap OK','var')
+disp('Soap OK')
 
 %c=who ('-regexp', 'rpi|bbb')
 %for k=1:length(C)
