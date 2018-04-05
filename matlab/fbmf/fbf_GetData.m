@@ -9,7 +9,20 @@ outAvg=0;
 inAvg=0;
 maxMem=0;
 maxCpu=0;
-for i = 1:5
+
+maxFiles=1;
+fileMem = sprintf('recorded_data/%s/%s/%s/%s_%s_MEM_%i.txt',platform,lang,protocol,upper(lang),upper(protocol),maxFiles);
+filePow = sprintf('recorded_data/%s/%s/%s/%s_%s_%i.txt',platform,lang,protocol,upper(lang),upper(protocol),maxFiles);
+while exist(fileMem,'file') && exist(filePow,'file') 
+    maxFiles=maxFiles+1;
+    fileMem = sprintf('recorded_data/%s/%s/%s/%s_%s_MEM_%i.txt',platform,lang,protocol,upper(lang),upper(protocol),maxFiles);
+    filePow = sprintf('recorded_data/%s/%s/%s/%s_%s_%i.txt',platform,lang,protocol,upper(lang),upper(protocol),maxFiles);
+end
+
+maxFiles=maxFiles-1;
+
+fprintf("Found %i Files\n",maxFiles);
+for i = 1:maxFiles
     [t, m, A, t2, ret, t3, avg, energy, mAmpsS] = fbf_ReadPowerData(platform,lang,protocol,i,offset);
     data(1,i)=avg(1);
     data(2,i)=avg(3);

@@ -1,21 +1,21 @@
 %load all
 
-if exist('rpi_Java_Kafka')==0
+if exist('rpi_Java_Kafka','var')==0
   Kafka
 end
 disp('Kafka OK')
 
-if exist('rpi_Java_Mqtt')==0
+if exist('rpi_Java_Mqtt','var')==0
   Mqtt
 end
 disp('Mqtt OK')
 
-if exist('rpi_Java_Rest')==0
+if exist('rpi_Java_Rest','var')==0
   Rest
 end
 disp('Rest OK')
 
-if exist('rpi_Java_Soap')==0
+if exist('rpi_Java_Soap','var')==0
   Soap
 end
 disp('Soap OK')
@@ -45,6 +45,13 @@ tableend="	\\label{tab:%s}\n";
 tableend= [tableend  "\\end{table}\n"];
 tableend=join(tableend);
 
+figure=join(["\\begin{figure}[H]\n" ...
+	"\t\\centering\n" ...
+	"\t\\includegraphics[width=\\textwidth]{images/%s}\n" ...
+	"\t\\caption{%s}\n" ...
+	"\t\\label{fig:%s}\n" ...
+    "\\end{figure}\n"]);
+
 fprintf(fid,head);
 
 names  = fbf_GetPrintNamesFormat();
@@ -63,26 +70,35 @@ names  = fbf_GetPrintNamesFormat();
 
 printTable('memAvg',names,fid, tablehead, tableend,data);
 printTable('maxMem',names,fid, tablehead, tableend,data);
-fprintf(fid,"\\newpage\n");
+fprintf(fid,figure,"memAvg","Memory Consumption","memAvg");
+fprintf(fid,"\n\\newpage\n\n");
 
 printTable('outAvg',names,fid, tablehead, tableend,data);
 printTable('inAvg',names,fid, tablehead, tableend,data);
-fprintf(fid,"\\newpage\n");
+fprintf(fid,figure,"outAvg","Network Consumption","outAvg");
+fprintf(fid,"\n\\newpage\n\n");
 
 printTable('cpuAvg',names,fid, tablehead, tableend,data);
 printTable('maxCpu',names,fid, tablehead, tableend,data);
-fprintf(fid,"\\newpage\n");
+fprintf(fid,figure,"cpuAvg","Cpu Consumption","cpuAvg");
+fprintf(fid,"\n\\newpage\n\n");
 
 printTable('preCurrentAvg',names,fid, tablehead, tableend,data);
 printTable('runCurrentAvg',names,fid, tablehead, tableend,data);
-fprintf(fid,"\\newpage\n");
+fprintf(fid,figure,"preCurrentAvg","Steady Current","preCurrentAvg");
+fprintf(fid,figure,"runCurrentAvg","Run Current","runCurrentAvg");
+fprintf(fid,"\n\\newpage\n\n");
+
 printTable('mAmpsHAvg',names,fid, tablehead, tableend,data);
 printTable('powerEstimation',names,fid, tablehead, tableend,data);
-fprintf(fid,"\\newpage\n");
+fprintf(fid,figure,"mAmpsHAvg","Comsumpted Power during the test","mAmpsHAvg");
+fprintf(fid,figure,"powerEstimation","Estimated Power for a running hour (1 message every 8 seconds)","powerEstimation");
+fprintf(fid,"\n\\newpage\n\n");
 
 printTable('timeStr',names,fid, tablehead, tableend,data);
 printTable('cycleTime',names,fid, tablehead, tableend,data);
-fprintf(fid,"\\newpage\n");
+fprintf(fid,figure,"cycleTime","One Cycle time","cycleTime");
+fprintf(fid,"\n\\newpage\n\n");
 
 fclose(fid);
 

@@ -1,21 +1,21 @@
 %load all
 
-if exist('rpi_Java_Kafka')==0
+if exist('rpi_Java_Kafka','var')==0
   Kafka
 end
 disp('Kafka OK')
 
-if exist('rpi_Java_Mqtt')==0
+if exist('rpi_Java_Mqtt','var')==0
   Mqtt
 end
 disp('Mqtt OK')
 
-if exist('rpi_Java_Rest')==0
+if exist('rpi_Java_Rest','var')==0
   Rest
 end
 disp('Rest OK')
 
-if exist('rpi_Java_Soap')==0
+if exist('rpi_Java_Soap','var')==0
   Soap
 end
 disp('Soap OK')

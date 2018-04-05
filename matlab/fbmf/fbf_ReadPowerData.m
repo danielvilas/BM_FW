@@ -10,7 +10,8 @@ M=csvread(file,0,0);
 t=M(:,1);
 
 C1=M(:,2)*(1/0.6-0.5);%*4.9/4.2; %from Rp code
-C2=M(:,3)*(1/0.6-0.5);%*4.9/4.2; %from Rp code
+C2=M(:,3)*(1/0.6-0.5)-0.0037;%*4.9/4.2; %from Rp code
+
 m=M(:,5);
 
 A=(C1-C2)/0.1*1000+offset; %To MilliAmps
