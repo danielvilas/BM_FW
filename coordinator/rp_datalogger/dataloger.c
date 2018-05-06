@@ -4,12 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "redpitaya/rp.h"
 #include <sys/time.h>
 #include <time.h>
 #include <sys/wait.h>
 
-static volatile bool need_exit = false;
+static volatile int need_exit = 0;
 
 long long current_timestamp() {
     struct timeval te;
@@ -20,7 +19,7 @@ long long current_timestamp() {
 }
 
 void readOne(uint32_t buff_size,float *buff_c1, float *buff_c2, long long currentTs ){
-    rp_pinState_t pinState=0;
+   /* rp_pinState_t pinState=0;
     rp_DpinGetState (RP_DIO0_P, &pinState);
     rp_AcqStart();
     rp_AcqSetTriggerSrc(RP_TRIG_SRC_NOW);
@@ -47,38 +46,41 @@ void readOne(uint32_t buff_size,float *buff_c1, float *buff_c2, long long curren
         mean_c2+=buff_c2[i]/buff_size;
     }
     mean_c2*=10;
-    mean_c1*=10;
+    mean_c1*=10;*/
+    float mean_c1=4.60;
+    float mean_c2=mean_c1-0.029;
+    int pinState=0;
     printf("%lld,%f,%f,%f,%i\n",currentTs, mean_c1,mean_c2,mean_c1-mean_c2,pinState);
 }
 
 static void on_sigint(int unused)
 {
     fprintf(stderr,"Cleaning and exiting\n");
-    need_exit = true;
+    need_exit = 1;
 }
 
 
 int main(int argc, char **argv){
 
     /* Print error, if rp_Init() function failed */
-    if(rp_Init() != RP_OK){
+    /*if(rp_Init() != RP_OK){
         fprintf(stderr, "Rp api init failed!\n");
-    }
+    }*/
     
     signal(SIGINT, &on_sigint);
-    siginterrupt(SIGINT, true);
+    siginterrupt(SIGINT, 1);
     signal(SIGTERM, &on_sigint);
-    siginterrupt(SIGTERM, true);
+    siginterrupt(SIGTERM, 1);
 
     uint32_t buff_size = 128;
     float *buff_c1 = (float *)malloc(buff_size * sizeof(float));
     float *buff_c2 = (float *)malloc(buff_size * sizeof(float));
-
+/*
     rp_DpinSetDirection (RP_DIO0_P, RP_IN);
     rp_AcqReset();
     rp_AcqSetDecimation(3);
     rp_AcqSetTriggerDelay(0);
-
+*/
    
 
     /* After acquisition is started some time delay is needed in order to acquire fresh samples in to buffer*/
@@ -100,7 +102,7 @@ int main(int argc, char **argv){
     /* Releasing resources */
     free(buff_c1);
     free(buff_c2);
-    rp_Release();
+   // rp_Release();
 
     return 0;
 }
