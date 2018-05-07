@@ -7,6 +7,7 @@
 #include <sys/time.h>
 #include <time.h>
 #include <sys/wait.h>
+#include <stdint.h>
 
 static volatile int need_exit = 0;
 

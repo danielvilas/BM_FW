@@ -1,22 +1,31 @@
 #include "datalogger.h"
 #include <stdio.h>
+#include <signal.h>
+#include <stdlib.h>
 
-const char* rp="../../rp_datalogger/Debug/rp_datalogger";//TODO extract from cfg
+char* rp="../../rp_datalogger/Debug/rp_datalogger";//TODO extract from cfg
+char* fileRp="C_MQTT_1.txt";
 
-pid_t startDataLogger(){
-    pid_t rp_dataloggerPid;
-    rp_dataloggerPid = fork();
+pid_t startDataLogger(pProcess proc){
+    proc->cmd=rp;
+    proc->args =(char**) malloc(2*sizeof(char*));
+    proc->args[0]=rp;
+    proc->args[1]=(char *)NULL;
+    proc->file=fileRp;
     
-    if(rp_dataloggerPid==-1){
-        perror("fork rp");
-        return -1;
-    }
-    if(rp_dataloggerPid==0){
-        if(execl(rp,rp,(char *)NULL)==-1){
-            perror(rp);
-        }
-        return -1;
-    }
+    return startProc(proc);
     
-    return rp_dataloggerPid;
+}
+
+int closeDataLogger(pProcess proc){
+    //Left for future cases of closeDL
+    kill(proc->pid, SIGINT);
+    //closeProc(proc);
+    while(1){
+        int r = dumpPipe(proc);
+        if(r==-1)break;
+    }
+    closeProc(proc);
+    waitForProc(proc);
+    return 0;
 }

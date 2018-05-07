@@ -3,7 +3,28 @@
 
 #include <unistd.h>
 #include <stdbool.h>
+#include <stdio.h>
 
-bool isStarted(pid_t pid);
-int waitForPid(pid_t);
+struct sProcess{
+    int pfd[2];
+    pid_t pid;
+    char* cmd;   
+    char* file;
+    char** args;
+    FILE* fileFd;
+};
+
+typedef struct sProcess tProcess;
+typedef tProcess* pProcess; 
+
+
+pid_t startProc(pProcess proc);
+bool isStartedProc(pProcess proc);
+int waitForProc(pProcess proc);
+int closeProc(pProcess proc);
+int dumpPipe(pProcess proc);
+
+#define PIPE_RE 0
+#define PIPE_WE 1
+
 #endif //PROC_COMMON_H

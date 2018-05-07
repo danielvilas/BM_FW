@@ -2,6 +2,8 @@
 #define DATALOGGER_H
 
 #include <unistd.h>
+#include "proc_common.h"
+pid_t startDataLogger(pProcess proc);
+int closeDataLogger(pProcess proc);
 
-pid_t startDataLogger();
 #endif //DATALOGGER_H
