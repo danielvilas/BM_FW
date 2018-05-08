@@ -1,13 +1,20 @@
 #include "config.h"
 #include <yaml.h>
+#include <stdbool.h>
 
 #define STR_PLATFORMS "platforms"
+#define STR_PROTOCOLS "protocols"
+#define STR_LANGUAGES "languages"
 #define STR_SSH_CMD "sshCmd"
 #define STR_DATALOGGER_CMD "dataloggerCmd"
 #define STR_NAME_PAR "name"
 #define STR_HOST_PAR "host"
 #define STR_USER_PAR "user"
 #define STR_KEY_PAR "key"
+#define STR_PARAM_PAR "param"
+#define STR_CMD_PAR "cmd"
+#define STR_DIR_PAR "dir"
+
 
 void debug(yaml_token_t token){
         switch(token.type)
@@ -31,14 +38,20 @@ void debug(yaml_token_t token){
     }
 }
 
-enum {NONE, SSH_CMD, DL_CMD,NAME_PAR, HOST_PAR, USER_PAR, KEY_PAR} lastParam;
-enum {KEY,VALUE} lastToken;
+enum {NONE, SSH_CMD, DL_CMD,NAME_PAR, HOST_PAR, USER_PAR, KEY_PAR, PARAM_PAR, CMD_PAR, DIR_PAR} lastParam;
+enum {TOK_NONE, KEY,VALUE} lastToken;
 enum eMode {
     MODE_START=0,
     MODE_GLOBAL,
     MODE_PLATFORMS,
+    MODE_PROTOCOLS,
+    MODE_LANGS,
     MODE_UNKNOWK
 } parser_mode;
+enum{PLAT_NONE,PLAT_START,PLAT_DATA} platform_mode;
+pPlatform lastPlatform;
+pProtocol lastProto;
+pLang lastLang;
 
 char* strClone(yaml_char_t* in){
     int s= strlen((const char*)in);
@@ -47,16 +60,31 @@ char* strClone(yaml_char_t* in){
     return ret;
 }
 
+bool checkMode(yaml_token_t token){
+    if(strcmp(STR_PLATFORMS,(const char*)token.data.scalar.value)==0){
+        parser_mode=MODE_PLATFORMS;
+        lastParam=NONE;
+        return true;
+    }
+    if(strcmp(STR_PROTOCOLS,(const char*)token.data.scalar.value)==0){
+        parser_mode=MODE_PROTOCOLS;
+        lastParam=NONE;
+        return true;
+    }
+    if(strcmp(STR_LANGUAGES,(const char*)token.data.scalar.value)==0){
+        parser_mode=MODE_LANGS;
+        lastParam=NONE;
+        return true;
+    }
+    return false;
+}
+
 void parseGlobal(yaml_token_t token, pConfig cfg){
     if(token.type==YAML_BLOCK_MAPPING_START_TOKEN ||
     token.type==YAML_KEY_TOKEN || token.type==YAML_VALUE_TOKEN)return;
     
     if(token.type==YAML_SCALAR_TOKEN){
-        if(strcmp(STR_PLATFORMS,(const char*)token.data.scalar.value)==0){
-            parser_mode=MODE_PLATFORMS;
-            lastParam=NONE;
-            return;
-        }
+        if(checkMode(token))return;
         if(lastToken==KEY){
             if(strcmp(STR_SSH_CMD,(const char*)token.data.scalar.value)==0){
                 lastParam=SSH_CMD;
@@ -72,6 +100,7 @@ void parseGlobal(yaml_token_t token, pConfig cfg){
                 cfg->datalogerCmd=strClone(token.data.scalar.value);
             }
             return;
+            lastToken=TOK_NONE;
         }
         printf("scalar %s \n", token.data.scalar.value);
         
@@ -79,14 +108,14 @@ void parseGlobal(yaml_token_t token, pConfig cfg){
     }
     debug(token);
 }
-enum{PLAT_NONE,PLAT_START,PLAT_DATA} platform_mode;
-pPlatform lastPlatform;
+
 
 void parsePlatform(yaml_token_t token, pConfig cfg){
     if(token.type==YAML_KEY_TOKEN 
     || token.type==YAML_VALUE_TOKEN
     || token.type==YAML_BLOCK_END_TOKEN
     || token.type==YAML_BLOCK_MAPPING_START_TOKEN)return;
+    
     
     if(token.type==YAML_BLOCK_SEQUENCE_START_TOKEN){
         platform_mode=PLAT_START;
@@ -105,6 +134,7 @@ void parsePlatform(yaml_token_t token, pConfig cfg){
         return;
     }
     if(token.type==YAML_SCALAR_TOKEN){
+        if(checkMode(token))return;     
         if(platform_mode!=PLAT_DATA){
             printf("Error Scalar %s \n", token.data.scalar.value);
             return;    
@@ -131,6 +161,7 @@ void parsePlatform(yaml_token_t token, pConfig cfg){
             }else if(lastParam==KEY_PAR){
                 lastPlatform->key=strClone(token.data.scalar.value);
             }
+            lastToken=TOK_NONE;
             return;
         }
         printf("Scalar %s \n", token.data.scalar.value);
@@ -138,6 +169,118 @@ void parsePlatform(yaml_token_t token, pConfig cfg){
     }
     debug(token);
 }
+
+void parseProtocol(yaml_token_t token, pConfig cfg){
+     if(token.type==YAML_KEY_TOKEN 
+    || token.type==YAML_VALUE_TOKEN
+    || token.type==YAML_BLOCK_END_TOKEN
+    || token.type==YAML_BLOCK_MAPPING_START_TOKEN)return;
+    
+    
+    if(token.type==YAML_BLOCK_SEQUENCE_START_TOKEN){
+        platform_mode=PLAT_START;
+        return;
+    }
+    if(token.type==YAML_BLOCK_ENTRY_TOKEN){
+        pProtocol newProto = malloc(sizeof(tProtocol));
+        newProto->next=NULL;
+        if(platform_mode==PLAT_START){
+            cfg->firstProtocol=newProto;
+            platform_mode=PLAT_DATA;
+        }else if(platform_mode==PLAT_DATA){
+            lastProto->next=newProto;
+        }
+        lastProto=newProto;
+        return;
+    }
+    
+    if(token.type==YAML_SCALAR_TOKEN){
+        if(checkMode(token))return;     
+        if(platform_mode!=PLAT_DATA){
+            printf("Error Scalar %s \n", token.data.scalar.value);
+            return;    
+        }
+        if(lastToken==KEY){
+            if(strcmp(STR_NAME_PAR,(const char*)token.data.scalar.value)==0){
+                lastParam=NAME_PAR;
+            }else if(strcmp(STR_PARAM_PAR,(const char*)token.data.scalar.value)==0){
+                lastParam=PARAM_PAR;
+            }
+            return;
+        }
+         if(lastToken==VALUE){
+            if(lastParam==NAME_PAR){
+                lastProto->name=strClone(token.data.scalar.value);
+            }else if(lastParam==PARAM_PAR){
+                lastProto->param=strClone(token.data.scalar.value);
+            }
+            lastToken=TOK_NONE;
+            return;
+        }
+        printf("Scalar %s \n", token.data.scalar.value);
+        return;
+    }
+    debug(token);
+}
+
+void parseLang(yaml_token_t token, pConfig cfg){
+     if(token.type==YAML_KEY_TOKEN 
+    || token.type==YAML_VALUE_TOKEN
+    || token.type==YAML_BLOCK_END_TOKEN
+    || token.type==YAML_BLOCK_MAPPING_START_TOKEN)return;
+    
+    
+    if(token.type==YAML_BLOCK_SEQUENCE_START_TOKEN){
+        platform_mode=PLAT_START;
+        return;
+    }
+    if(token.type==YAML_BLOCK_ENTRY_TOKEN){
+        pLang newLang = malloc(sizeof(tLang));
+        newLang->next=NULL;
+        if(platform_mode==PLAT_START){
+            cfg->firstLang=newLang;
+            platform_mode=PLAT_DATA;
+        }else if(platform_mode==PLAT_DATA){
+            lastLang->next=newLang;
+        }
+        lastLang=newLang;
+        return;
+    }
+    
+    if(token.type==YAML_SCALAR_TOKEN){
+        if(checkMode(token))return;     
+        if(platform_mode!=PLAT_DATA){
+            printf("Error Scalar %s \n", token.data.scalar.value);
+            return;    
+        }
+        if(lastToken==KEY){
+            if(strcmp(STR_NAME_PAR,(const char*)token.data.scalar.value)==0){
+                lastParam=NAME_PAR;
+            }else if(strcmp(STR_CMD_PAR,(const char*)token.data.scalar.value)==0){
+                lastParam=CMD_PAR;
+            }else if(strcmp(STR_DIR_PAR,(const char*)token.data.scalar.value)==0){
+                lastParam=DIR_PAR;
+            }
+            return;
+        }
+         if(lastToken==VALUE){
+            if(lastParam==NAME_PAR){
+                lastLang->name=strClone(token.data.scalar.value);
+            }else if(lastParam==CMD_PAR){
+                lastLang->cmd=strClone(token.data.scalar.value);
+            }else if(lastParam==DIR_PAR){
+                lastLang->dir=strClone(token.data.scalar.value);
+            }
+            
+            lastToken=TOK_NONE;
+            return;
+        }
+        printf("Scalar %s \n", token.data.scalar.value);
+        return;
+    }
+    debug(token);
+}
+
 
 int readYaml (char filename[], pConfig cfg){
     FILE *fh = fopen(filename, "r");
@@ -174,6 +317,10 @@ int readYaml (char filename[], pConfig cfg){
         parseGlobal(token, cfg);
     }else if(parser_mode==MODE_PLATFORMS){
         parsePlatform(token, cfg);
+    }else if(parser_mode==MODE_PROTOCOLS){
+        parseProtocol(token, cfg);
+    }else if(parser_mode==MODE_LANGS){
+        parseLang(token, cfg);
     }else{
         debug(token);
     }
@@ -200,4 +347,21 @@ void printConfig(pConfig cfg){
         printf("   "STR_KEY_PAR": %s\n",ptr->key);
         ptr=ptr->next;
     }
+    printf(STR_PROTOCOLS":\n");
+    pProtocol ptProto = cfg->firstProtocol;
+    while(ptProto!=NULL){
+        printf(" - "STR_NAME_PAR": %s\n",ptProto->name);
+        printf("   "STR_PARAM_PAR": %s\n",ptProto->param);
+        ptProto=ptProto->next;
+    }
+    printf(STR_LANGUAGES":\n");
+    pLang ptLang = cfg->firstLang;
+    while(ptLang!=NULL){
+        printf(" - "STR_NAME_PAR": %s\n",ptLang->name);
+        printf("   "STR_PARAM_PAR": %s\n",ptLang->dir);
+        printf("   "STR_PARAM_PAR": %s\n",ptLang->cmd);
+        ptLang=ptLang->next;
+    }
+    
+    //printf(cfg->firstLang->cmd,"Hi\n");
 }

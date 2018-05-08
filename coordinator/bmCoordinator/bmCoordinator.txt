@@ -1,1 +1,1 @@
-./Debug/main.c.o ./Debug/datalogger.c.o ./Debug/proc_common.c.o ./Debug/remote_proc.c.o ./Debug/config.c.o
+./Debug/remote_proc.c.o ./Debug/proc_common.c.o ./Debug/config.c.o ./Debug/main.c.o ./Debug/datalogger.c.o

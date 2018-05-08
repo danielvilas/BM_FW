@@ -35,11 +35,14 @@ int execute(){
 int main(int argc, char **argv)
 {
 	printf("BMF Coordinator\n");
+    if(argc<2){
+        printf("Usage: %s <configFile>\n",argv[0]);
+        return -1;
+    }
     
     tConfig cfg;
     
-    if(readYaml("../config.yml",&cfg)){
-        
+    if(readYaml(argv[1],&cfg)){
         return -1;
     }
     printConfig(&cfg);

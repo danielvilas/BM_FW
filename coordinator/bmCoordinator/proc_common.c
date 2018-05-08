@@ -40,7 +40,6 @@ pid_t startProc(pProcess proc){
     close(proc->pfd[PIPE_WE]); //parent don't need pipe out;
     
     int retval = fcntl( proc->pfd[PIPE_RE], F_SETFL, fcntl(proc->pfd[PIPE_RE], F_GETFL) | O_NONBLOCK);
-       
     if(retval)    
     {
         printf("failed to set O_NONBLOCK\n");
@@ -60,7 +59,6 @@ bool isStartedProc(pProcess proc){
     usleep(1000);
     int status=-1;
     if(waitpid(pid,&status,  WNOHANG)!=0){
-        //printf("Error al ejecutar %i\n",status);
         if ( WIFEXITED(status) ) {
             const int es = WEXITSTATUS(status);
             printf("%s exit status was %d\n",proc->cmd, es);
@@ -92,20 +90,15 @@ int closeProc(pProcess proc){
     return 0;
 }
 
-int dumpPipe(pProcess proc){
-     //if(feof(proc->pfd[PIPE_RE]))return -1;
-        
+int dumpPipe(pProcess proc){        
     char buff[1024];
     ssize_t r=read(proc->pfd[PIPE_RE], buff, sizeof(buff) );
-    //printf("read: %li\n",r);
     if ( r > 0 ){
         //printf("%s read: %li\n",proc->cmd,r);
         //printf("Buffer: %s\n", buff);
         fwrite(buff, sizeof(char),r,proc->fileFd);
         fflush(proc->fileFd);
     }else{
-        //printf("Read nothing\n");
-        //perror("ReadPipe");//Control TO
         int err=errno;
         if(!isStartedProc(proc))return -1;
         if(err==EAGAIN)return 0;

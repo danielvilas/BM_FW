@@ -11,10 +11,30 @@ struct sPlatform{
     pPlatform next;
 };
 
+typedef struct sProtocol tProtocol;
+typedef tProtocol* pProtocol;
+
+struct sProtocol{
+    char* name;
+    char* param;
+    pProtocol next;
+};
+typedef struct sLang tLang;
+typedef tLang* pLang;
+
+struct sLang{
+    char* name;
+    char* dir;
+    char* cmd;
+    pLang next;
+};
+
 struct sConfig{
     char* sshCmd;
     char* datalogerCmd;
     pPlatform firstPlatform;
+    pProtocol firstProtocol;
+    pLang firstLang;
 };
 
 typedef struct sConfig tConfig;
