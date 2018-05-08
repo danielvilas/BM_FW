@@ -1,0 +1,14 @@
+#local config
+sshCmd: /usr/bin/ssh
+dataloggerCmd: ../../rp_datalogger/Debug/rp_datalogger
+
+#Data of the platforms
+platforms:
+ - name: RaspberryPi
+   host: localhost
+   user: daniel
+   key: ~/.ssh/id_rsa
+ - name: BeagleBone
+   host: localhost
+   user: daniel
+   key: ~/.ssh/id_rsa

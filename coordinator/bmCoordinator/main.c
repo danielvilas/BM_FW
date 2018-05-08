@@ -5,11 +5,9 @@
 #include "datalogger.h"
 #include "proc_common.h"
 #include "remote_proc.h"
+#include "config.h"
 
-int main(int argc, char **argv)
-{
-	printf("BMF Coordinator\n");
-    
+int execute(){
     tProcess rp_datalogger;
     tProcess remoteProc;
     
@@ -31,6 +29,21 @@ int main(int argc, char **argv)
     closeRemoteProc(&remoteProc);
     sleep(3);
     closeDataLogger(&rp_datalogger);
+    return 0;
+}
+
+int main(int argc, char **argv)
+{
+	printf("BMF Coordinator\n");
     
-	return 0;
+    tConfig cfg;
+    
+    if(readYaml("../config.yml",&cfg)){
+        
+        return -1;
+    }
+    printConfig(&cfg);
+    
+	//return execute();
+    return 0;
 }
