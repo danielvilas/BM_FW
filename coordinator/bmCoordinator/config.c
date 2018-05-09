@@ -59,6 +59,7 @@ char* strClone(yaml_char_t* in){
     int s= strlen((const char*)in);
     char* ret = malloc((s+1)*sizeof(char));
     memcpy(ret,in,s);
+    ret[s]='\0';
     return ret;
 }
 

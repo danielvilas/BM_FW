@@ -9,6 +9,12 @@ pid_t startDataLogger(pProcess proc,pConfig cfg, pPlatform plat, pLang lang, pPr
     int w =sprintf(fileRp,"%s_%s_%i.txt",lang->name,proto->name,i);
     fileRp[w]='\0';
     ucaseFile(fileRp);
+    
+    if( access( fileRp, F_OK ) != -1 ) {
+        printf("\tOmitted %s exists\n",fileRp);
+        return -1;
+    }
+    
     proc->cmd=cfg->datalogerCmd;
     proc->args =(char**) malloc(2*sizeof(char*));
     proc->args[0]=cfg->datalogerCmd;
