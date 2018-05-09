@@ -14,6 +14,8 @@
 #define STR_PARAM_PAR "param"
 #define STR_CMD_PAR "cmd"
 #define STR_DIR_PAR "dir"
+#define STR_TIMES_PAR "times"
+
 
 
 void debug(yaml_token_t token){
@@ -21,7 +23,7 @@ void debug(yaml_token_t token){
     {
     /* Stream start/end */
     case YAML_STREAM_START_TOKEN: puts("STREAM START"); break;
-    case YAML_STREAM_END_TOKEN:   puts("STREAM END");   break;
+    case YAML_STREAM_END_TOKEN:   /*puts("STREAM END");*/   break;
     /* Token types (read before actual token) */
     case YAML_KEY_TOKEN:   printf("(Key token)   "); break;
     case YAML_VALUE_TOKEN: printf("(Value token) "); break;
@@ -38,7 +40,7 @@ void debug(yaml_token_t token){
     }
 }
 
-enum {NONE, SSH_CMD, DL_CMD,NAME_PAR, HOST_PAR, USER_PAR, KEY_PAR, PARAM_PAR, CMD_PAR, DIR_PAR} lastParam;
+enum {NONE, SSH_CMD, DL_CMD, TIMES_PAR,NAME_PAR, HOST_PAR, USER_PAR, KEY_PAR, PARAM_PAR, CMD_PAR, DIR_PAR} lastParam;
 enum {TOK_NONE, KEY,VALUE} lastToken;
 enum eMode {
     MODE_START=0,
@@ -90,6 +92,8 @@ void parseGlobal(yaml_token_t token, pConfig cfg){
                 lastParam=SSH_CMD;
             }else if(strcmp(STR_DATALOGGER_CMD,(const char*)token.data.scalar.value)==0){
                 lastParam=DL_CMD;
+            }else if(strcmp(STR_TIMES_PAR,(const char*)token.data.scalar.value)==0){
+                lastParam=TIMES_PAR;
             }
             return;
         }
@@ -98,6 +102,8 @@ void parseGlobal(yaml_token_t token, pConfig cfg){
                 cfg->sshCmd=strClone(token.data.scalar.value);
             }else if(lastParam==DL_CMD){
                 cfg->datalogerCmd=strClone(token.data.scalar.value);
+            }else if(lastParam==TIMES_PAR){
+                cfg->times=atoi((const char*)token.data.scalar.value);
             }
             return;
             lastToken=TOK_NONE;
@@ -338,6 +344,7 @@ int readYaml (char filename[], pConfig cfg){
 void printConfig(pConfig cfg){
     printf(STR_SSH_CMD": %s\n",cfg->sshCmd);
     printf(STR_DATALOGGER_CMD": %s\n",cfg->datalogerCmd);
+    printf(STR_TIMES_PAR": %i\n",cfg->times);
     printf(STR_PLATFORMS":\n");
     pPlatform ptr = cfg->firstPlatform;
     while(ptr!=NULL){

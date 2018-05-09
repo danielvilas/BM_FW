@@ -23,6 +23,7 @@ bool isStartedProc(pProcess proc);
 int waitForProc(pProcess proc);
 int closeProc(pProcess proc);
 int dumpPipe(pProcess proc);
+void ucaseFile(char* file);
 
 #define PIPE_RE 0
 #define PIPE_WE 1

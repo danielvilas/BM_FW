@@ -32,6 +32,7 @@ struct sLang{
 struct sConfig{
     char* sshCmd;
     char* datalogerCmd;
+    int times;
     pPlatform firstPlatform;
     pProtocol firstProtocol;
     pLang firstLang;

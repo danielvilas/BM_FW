@@ -1,6 +1,7 @@
 #local config
 sshCmd: /usr/bin/ssh
-dataloggerCmd: ../../rp_datalogger/Debug/rp_datalogger
+dataloggerCmd: ../rp_datalogger/Debug/rp_datalogger
+times: 1
 
 #Data of the platforms
 # - name: display name
@@ -10,7 +11,7 @@ dataloggerCmd: ../../rp_datalogger/Debug/rp_datalogger
 
 platforms:
  - name: RaspberryPi
-   host: localhost
+   host: serverpi.local
    user: daniel
    key: ~/.ssh/id_rsa
  - name: BeagleBone
@@ -27,7 +28,7 @@ protocols:
  - name: Mqtt
    param: MQTT
  - name: SoapWS
-   param: Soap
+   param: WS
  - name: Rest
    param: REST
    

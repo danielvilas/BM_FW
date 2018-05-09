@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <ctype.h>
 
 void printCmd(pProcess proc){
     int i=0;
@@ -104,4 +105,13 @@ int dumpPipe(pProcess proc){
         if(err==EAGAIN)return 0;
     }
     return r;
+}
+
+
+void ucaseFile(char* file){
+    char* s=file;
+    while(*s && (*s) !='.'){
+        *s=toupper(*s);
+        s++;
+    }
 }

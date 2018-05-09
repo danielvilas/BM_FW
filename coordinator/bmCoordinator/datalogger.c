@@ -3,13 +3,15 @@
 #include <signal.h>
 #include <stdlib.h>
 
-char* rp="../../rp_datalogger/Debug/rp_datalogger";//TODO extract from cfg
-char* fileRp="C_MQTT_1.txt";
+char fileRp[255];
 
-pid_t startDataLogger(pProcess proc){
-    proc->cmd=rp;
+pid_t startDataLogger(pProcess proc,pConfig cfg, pPlatform plat, pLang lang, pProtocol proto,int i){
+    int w =sprintf(fileRp,"%s_%s_%i.txt",lang->name,proto->name,i);
+    fileRp[w]='\0';
+    ucaseFile(fileRp);
+    proc->cmd=cfg->datalogerCmd;
     proc->args =(char**) malloc(2*sizeof(char*));
-    proc->args[0]=rp;
+    proc->args[0]=cfg->datalogerCmd;
     proc->args[1]=(char *)NULL;
     proc->file=fileRp;
     
