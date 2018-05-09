@@ -1,7 +1,7 @@
 CFLAGS  = -g -std=gnu99 -Wall -Werror
 CFLAGS += -I/opt/redpitaya/include
 LDFLAGS = -L/opt/redpitaya/lib
-LDLIBS = -lm -lpthread -lrp
+LDLIBS = -lm -lpthread -lyaml
 
 SRCS=$(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
@@ -9,7 +9,7 @@ OBJS=$(SRCS:.c=.o)
 all: bmCoordinator
 
 bmCoordinator: $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) -o bmCoordinator
+	$(CC) $(LDFLAGS) $(LDLIBS) $(OBJS) -o bmCoordinator
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
 

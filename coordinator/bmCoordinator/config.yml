@@ -21,18 +21,21 @@ platforms:
 
 #Data of the protocols
 # - name: display name
-#   param: value for programs
+#   param: value for programs must be the same in all programs
 protocols:
  - name: Kafka
    param: KAFKA
  - name: Mqtt
    param: MQTT
- - name: SoapWS
+ - name: Soap
    param: WS
  - name: Rest
    param: REST
    
-
+#Data of the languages
+# - name: display name
+#   dir: directory on the platform, must be the same in all platforms
+#   cmd: command to use on the directory, use "%s" (one) to receive the protocol
 languages:
  - name: C
    dir: bm_c
