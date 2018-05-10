@@ -21,7 +21,7 @@ void fillRemoteProc(pProcess proc,pConfig cfg, pPlatform plat, pLang lang, pProt
     fileWoExt[w]='\0';
     ucaseFile(fileWoExt);
     
-    w =sprintf(file,"%s%s",fileWoExt,localExt);
+    w =sprintf(file,"%s/%s/%s/%s%s",plat->name,lang->name,proto->name,fileWoExt,localExt);
     file[w]='\0';
     
     w=sprintf(user,"-l%s",plat->user);
