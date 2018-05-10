@@ -5,18 +5,18 @@
 ## Debug
 ProjectName            :=rp_datalogger
 ConfigurationName      :=Debug
-WorkspacePath          :=/Volumes/Datos/Daniel/GoogleDrive/DoctoradoDB/Articulo1/code/BM_FW/coordinator
-ProjectPath            :=/Volumes/Datos/Daniel/GoogleDrive/DoctoradoDB/Articulo1/code/BM_FW/coordinator/rp_datalogger
+WorkspacePath          :=/home/daniel/BM_FW/coordinator
+ProjectPath            :=/home/daniel/BM_FW/coordinator/rp_datalogger
 IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
-User                   :=Daniel Vilas Perulan
-Date                   :=08/05/2018
-CodeLitePath           :="/Users/daniel/Library/Application Support/codelite"
+User                   :=daniel
+Date                   :=10/05/18
+CodeLitePath           :=/home/daniel/.codelite
 LinkerName             :=/usr/bin/g++
-SharedObjectLinkerName :=/usr/bin/g++ -dynamiclib -fPIC
+SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
 ObjectSuffix           :=.o
 DependSuffix           :=.o.d
 PreprocessSuffix       :=.i
@@ -59,7 +59,7 @@ AS       := /usr/bin/as
 ##
 ## User defined environment variables
 ##
-CodeLiteDir:=/private/var/folders/rz/54385wcn4y7gbgt44q29l8yc0000gn/T/AppTranslocation/9BF5E2D8-B9B7-4996-999D-04A07BB0096B/d/codelite.app/Contents/SharedSupport/
+CodeLiteDir:=/usr/share/codelite
 Objects0=$(IntermediateDirectory)/dataloger.c$(ObjectSuffix) 
 
 
@@ -92,7 +92,7 @@ PreBuild:
 ## Objects
 ##
 $(IntermediateDirectory)/dataloger.c$(ObjectSuffix): dataloger.c $(IntermediateDirectory)/dataloger.c$(DependSuffix)
-	$(CC) $(SourceSwitch) "/Volumes/Datos/Daniel/GoogleDrive/DoctoradoDB/Articulo1/code/BM_FW/coordinator/rp_datalogger/dataloger.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/dataloger.c$(ObjectSuffix) $(IncludePath)
+	$(CC) $(SourceSwitch) "/home/daniel/BM_FW/coordinator/rp_datalogger/dataloger.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/dataloger.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/dataloger.c$(DependSuffix): dataloger.c
 	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/dataloger.c$(ObjectSuffix) -MF$(IntermediateDirectory)/dataloger.c$(DependSuffix) -MM dataloger.c
 
