@@ -1,0 +1,23 @@
+#local config
+
+#Data of the platforms
+# - name: display name
+platforms:
+ - name: Raspberry
+ - name: BeagleBone
+
+#Data of the protocols
+# - name: display name
+protocols:
+ - name: Kafka
+ - name: Mqtt
+ - name: Soap
+ - name: Rest
+   
+#Data of the languages
+# - name: display name
+languages:
+ - name: C
+ - name: Node
+ - name: Java
+ - name: Python
