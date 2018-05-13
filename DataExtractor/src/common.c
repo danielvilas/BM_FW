@@ -4,8 +4,13 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <errno.h>
 #include "common.h"
 #include "config.h"
+
+#ifndef ENOFILE
+#define ENOFILE ENOENT
+#endif
 
 void ucaseFile(char* file){
     char* s=file;

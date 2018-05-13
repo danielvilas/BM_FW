@@ -5,13 +5,8 @@
 #include "config.h"
 #include "common.h"
 #include "memory.h"
-
-
-
-FILE* openFilePower(char* dir, pName plat, pName lang, pName proto, int i){
-    return openFile(dir, plat, lang, proto, i,"");
-}
-
+#include "power.h"
+#include <xlsxwriter.h>
 
 void executeOne(char* dir, pName plat, pName lang, pName proto ){
     char filename[FILENAME_MAX];
@@ -31,6 +26,17 @@ void executeOne(char* dir, pName plat, pName lang, pName proto ){
         createMemSheet(workbook,filename,mem);
         free(mem->data);
         free(mem);
+
+        fillNameSuffixIndex(filename,lang,proto,i,"PWR_");
+        pPowerInfo pwr=parsePowerData(dir,plat,lang,proto,1);
+        //if(pwr==NULL)break;
+        createPowerSheet(workbook,filename,pwr);
+        free(pwr->groupData->data);
+        free(pwr->groupData);
+        free(pwr->fullData->data);
+        free(pwr->fullData);
+        free(pwr);
+
         i++;
     }
     //End for each file
@@ -38,6 +44,22 @@ void executeOne(char* dir, pName plat, pName lang, pName proto ){
     workbook_close(workbook);
     printf("Report: %s saved\n",filePath);
     return;
+}
+
+void execute(char* dir, pConfig cfg){
+    pName plat=cfg->firstPlatform;
+    while(plat!=NULL){
+        pName lang = cfg->firstLang;
+        while(lang!=NULL){
+            pName proto=cfg->firstProtocol;
+            while(proto!=NULL){
+                executeOne(dir,plat,lang,proto);
+                proto=proto->next;
+            }
+            lang=lang->next;
+        }
+        plat=plat->next;
+    }
 }
 
 int main(int argc, char** argv) {
@@ -57,8 +79,8 @@ int main(int argc, char** argv) {
     if(argc<3){
         printConfig(&cfg);
     }else{
-        executeOne(argv[2],cfg.firstPlatform,cfg.firstLang,cfg.firstProtocol);
-
+        //executeOne(argv[2],cfg.firstPlatform,cfg.firstLang,cfg.firstProtocol);
+        execute(argv[2],&cfg);
     }
 
     return 0;

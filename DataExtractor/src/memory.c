@@ -9,7 +9,7 @@
 FILE* openFileMem(char* dir,pName plat, pName lang, pName proto, int i){
     return openFile(dir, plat, lang, proto, i,"MEM_");
 }
-int readForCheckAndSize(FILE* file){
+int readForCheckAndSizeMem(FILE* file){
     char sInputBuf [BUFFER_SIZE];
     int line=0;
     tMemDataEntry entry;
@@ -30,9 +30,9 @@ int readForCheckAndSize(FILE* file){
     return line;
 }
 
-pMemInfoEntry readData(FILE* file, int lines){
-    pMemInfoEntry data=(pMemInfoEntry )malloc(sizeof(tMemInfoEntry)*lines);
-    pMemDataEntry read =(pMemDataEntry)malloc(sizeof(tMemDataEntry)*lines);
+pMemInfoEntry readDataMem(FILE* file, int lines){
+    pMemInfoEntry data=(pMemInfoEntry )malloc(sizeof(tMemInfoEntry)*lines+1);
+    pMemDataEntry read =(pMemDataEntry)malloc(sizeof(tMemDataEntry)*lines+1);
 
     int line=-2;
     char sInputBuf [BUFFER_SIZE];
@@ -100,14 +100,14 @@ pvMemInfoEntry parseMemData(char* dir,pName plat, pName lang, pName proto, int i
     FILE* file = openFileMem(dir,plat,lang,proto,i);
     if(file==0) return 0;
 
-    int line = readForCheckAndSize(file);
+    int line = readForCheckAndSizeMem(file);
 
     //Reset the file if we have data
     fclose(file);
     if(line==0)return NULL;
     file = openFileMem(dir,plat,lang,proto,i);
 
-    pMemInfoEntry data =readData(file, line);
+    pMemInfoEntry data =readDataMem(file, line);
     fclose(file);
     if(data==0)return NULL;
 
