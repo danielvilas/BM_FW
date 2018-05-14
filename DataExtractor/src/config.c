@@ -6,6 +6,9 @@
 #define STR_PROTOCOLS "protocols"
 #define STR_LANGUAGES "languages"
 #define STR_NAME_PAR "name"
+#define STR_ESTIMATION "estimation"
+#define STR_CYCLES "cycles"
+#define STR_INTERVAL "interval"
 
 
 void debug(yaml_token_t token){
@@ -30,7 +33,7 @@ void debug(yaml_token_t token){
     }
 }
 
-enum {NONE, NAME_PAR} lastParam;
+enum {NONE, NAME_PAR,INTERVAL_PAR, CYCLES_PAR} lastParam;
 enum {TOK_NONE, KEY,VALUE} lastToken;
 enum eMode {
     MODE_START=0,
@@ -38,6 +41,7 @@ enum eMode {
     MODE_PLATFORMS,
     MODE_PROTOCOLS,
     MODE_LANGS,
+    MODE_ESTIMATION,
     MODE_UNKNOWK
 } parser_mode;
 enum{NAME_NONE,NAME_START,NAME_DATA} name_mode;
@@ -65,6 +69,11 @@ bool checkMode(yaml_token_t token){
     }
     if(strcmp(STR_LANGUAGES,(const char*)token.data.scalar.value)==0){
         parser_mode=MODE_LANGS;
+        lastParam=NONE;
+        return true;
+    }
+    if(strcmp(STR_ESTIMATION,(const char*)token.data.scalar.value)==0){
+        parser_mode=MODE_ESTIMATION;
         lastParam=NONE;
         return true;
     }
@@ -137,6 +146,45 @@ void parseName(yaml_token_t token, pConfig cfg){
     debug(token);
 }
 
+
+void parseEstimation(yaml_token_t token, pConfig cfg){
+    if(token.type==YAML_KEY_TOKEN
+       || token.type==YAML_VALUE_TOKEN
+       || token.type==YAML_BLOCK_END_TOKEN
+       || token.type==YAML_BLOCK_MAPPING_START_TOKEN)return;
+
+
+    if(token.type==YAML_BLOCK_SEQUENCE_START_TOKEN){
+        return;
+    }
+    if(token.type==YAML_BLOCK_ENTRY_TOKEN){
+        return;
+    }
+    if(token.type==YAML_SCALAR_TOKEN){
+        if(checkMode(token))return;
+        if(lastToken==KEY){
+            if(strcmp(STR_CYCLES,(const char*)token.data.scalar.value)==0){
+                lastParam=CYCLES_PAR;
+            }else if(strcmp(STR_INTERVAL,(const char*)token.data.scalar.value)==0){
+                lastParam=INTERVAL_PAR;
+            }
+            return;
+        }
+        if(lastToken==VALUE){
+            if(lastParam==CYCLES_PAR){
+                cfg->cycles=atoi(token.data.scalar.value);
+            }else if(lastParam==INTERVAL_PAR){
+                cfg->interval=atoi(token.data.scalar.value);
+            }
+            lastToken=TOK_NONE;
+            return;
+        }
+        printf("Scalar %s \n", token.data.scalar.value);
+        return;
+    }
+    debug(token);
+}
+
 int readYaml (char filename[], pConfig cfg){
     FILE *fh = fopen(filename, "r");
   yaml_parser_t parser;
@@ -170,6 +218,8 @@ int readYaml (char filename[], pConfig cfg){
         }
     }else if(parser_mode==MODE_GLOBAL){
         parseGlobal(token, cfg);
+    }else if(parser_mode==MODE_ESTIMATION){
+        parseEstimation(token, cfg);
     }else if(parser_mode==MODE_PLATFORMS){
         parseName(token, cfg);
     }else if(parser_mode==MODE_PROTOCOLS){
@@ -191,6 +241,9 @@ int readYaml (char filename[], pConfig cfg){
 }
 
 void printConfig(pConfig cfg){
+    printf(STR_ESTIMATION":\n");
+    printf("   "STR_CYCLES": %i\n",cfg->cycles);
+    printf("   "STR_INTERVAL": %i\n",cfg->interval);
 
     printf(STR_PLATFORMS":\n");
     pName ptr = cfg->firstPlatform;

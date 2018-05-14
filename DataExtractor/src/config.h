@@ -10,9 +10,8 @@ struct sName{
 
 
 struct sConfig{
-    char* sshCmd;
-    char* datalogerCmd;
-    int times;
+    int cycles;
+    int interval;
     pName firstPlatform;
     pName firstProtocol;
     pName firstLang;

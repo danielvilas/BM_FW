@@ -20,13 +20,20 @@ struct sPowerInfoEntry{
     long long time; // uSeconds from start app
     float current; //% cpu Total
     float power;
+    float mAmpsS;
 };
 STRUCT_TYPES(PowerInfoEntry)
 VECTOR(PowerInfoEntry)
 
 struct sPowerInfo{
-    float steadyCurrent;
-    float runCurrent;
+    float steadyCurrent_mA;
+    float runCurrent_mA;
+    float runEnergy_J;
+    float runEnergy_mAs;
+    float runEnergy_mAh;
+    float time_ms;
+    float cycleTime_ms;
+    float estEnergy_mAh;
     pvPowerInfoEntry fullData;
     pvPowerInfoEntry groupData;
 

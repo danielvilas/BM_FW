@@ -85,6 +85,8 @@ pPowerInfo readDataPower(FILE* file, int lines, int total){
             data[fline].power=(data[fline].current+data[fline-1].current)/2000*
                     (entry.chMinus+lastRead.chMinus)/2*
                     (entry.currentTs-lastRead.currentTs)/1000;
+            data[fline].mAmpsS=(data[fline].current+data[fline-1].current)/2*
+                              (entry.currentTs-lastRead.currentTs)/1000;
         }
 
         if(lastFlag!=entry.flag){
@@ -98,10 +100,12 @@ pPowerInfo readDataPower(FILE* file, int lines, int total){
             res_data[rline].time=data[fline].time;
             res_data[rline].current=data[fline].current;
             res_data[rline].power=data[fline].power;
+            res_data[rline].mAmpsS=data[fline].mAmpsS;
             cnt=1;
         }else{
             res_data[rline].current+=data[fline].current;
             res_data[rline].power+=data[fline].power;
+            res_data[rline].mAmpsS+=data[fline].mAmpsS;
             cnt++;
         }
 
@@ -112,26 +116,17 @@ pPowerInfo readDataPower(FILE* file, int lines, int total){
     res_data[0].time=0;
     res_data[0].current=res_data[1].current;
     res_data[0].power=0;
+    res_data[0].mAmpsS=0;
     res_data[1].time=res_data[2].time;
     res_data[rline].current=res_data[rline].current/cnt;
     rline++;
     res_data[rline].time=data[fline].time;
     res_data[rline].current=res_data[rline-1].current;
     res_data[rline].power=0;
+    res_data[rline].mAmpsS=0;
     fline++;
     rline++;
 
-
-    /*printf("Used: %i lines of %i\n",rline,lines);
-    float power=0.0;
-    for(int i = 0;i<=rline;i++){
-        tPowerInfoEntry entry = res_data[i];
-        printf("%lld;%f;%f\n", entry.time , entry.current, entry.power);
-        if(i>0 && i< rline-1){
-            power+=entry.power;
-        }
-    }*/
-    //free(read);
     pvPowerInfoEntry vData= malloc(sizeof(tvPowerInfoEntry));
     vData->data=data;
     vData->size=fline;
@@ -144,6 +139,24 @@ pPowerInfo readDataPower(FILE* file, int lines, int total){
     pPowerInfo info = malloc(sizeof(tPowerInfo));
     info->fullData=vData;
     info->groupData=rData;
+
+    float avg=0.0;
+    float powerJ=0.0;
+    float mas=0.0;
+    for(int i=2;i<rline-2;i++){
+        //if(i>1 && i< pwr->groupData->size-2){
+            avg+=res_data[i].current/(rline-4);
+            powerJ+=res_data[i].power;
+            mas+=res_data[i].mAmpsS;
+        //}
+    }
+    info->steadyCurrent_mA=res_data[0].current;
+    info->runCurrent_mA=avg;
+    info->runEnergy_J=powerJ;
+    info->runEnergy_mAs=mas;
+    info->runEnergy_mAh=mas/3600;
+    info->time_ms=res_data[rline-2].time-res_data[1].time;
+
     return info;
 
     //return data;
@@ -169,56 +182,71 @@ pPowerInfo parsePowerData(char* dir,pName plat, pName lang, pName proto, int i){
     return data;
 }
 
+#define HEADER_ROW 0
+#define TITLE_ROW 1
+#define START_ROW 2
+
+#define FULL_TIME_COL 0
+#define FULL_CURRENT_COL 1
+#define FULL_MAS_COL 2
+#define FULL_POWER_COL 3
+#define GROUP_TIME_COL 4
+#define GROUP_CURRENT_COL 5
+#define GROUP_MAS_COL 6
+#define GROUP_POWER_COL 7
+#define AVG_TIME_COL 8
+#define AVG_CURRENT_COL 9
+
 lxw_worksheet* createPowerWorkSheet(lxw_workbook* workbook,char* filename){
     lxw_worksheet *worksheet = workbook_add_worksheet(workbook, filename);
     worksheet_set_footer(worksheet,filename);
-    worksheet_merge_range(worksheet,0,0,0,2,"Full",NULL);
-    worksheet_write_string (worksheet, 1, 0, "time", NULL);//a2
-    worksheet_write_string (worksheet, 1, 1, "current", NULL);//b2
-    worksheet_write_string (worksheet, 1, 2, "power", NULL);//c2
+    worksheet_merge_range(worksheet,HEADER_ROW,FULL_TIME_COL,HEADER_ROW,FULL_POWER_COL,"Full",NULL);
+    worksheet_write_string (worksheet, TITLE_ROW, FULL_TIME_COL, "time", NULL);//a2
+    worksheet_write_string (worksheet, TITLE_ROW, FULL_CURRENT_COL, "current", NULL);//b2
+    worksheet_write_string (worksheet, TITLE_ROW, FULL_MAS_COL, "mAs", NULL);//b2
+    worksheet_write_string (worksheet, TITLE_ROW, FULL_POWER_COL, "power", NULL);//c2
 
-    worksheet_merge_range(worksheet,0,3,0,5,"Aggregated",NULL);
-    worksheet_write_string (worksheet, 1, 3, "time", NULL);//d2
-    worksheet_write_string (worksheet, 1, 4, "current", NULL);//e2
-    worksheet_write_string (worksheet, 1, 5, "power", NULL);//f2
+    worksheet_merge_range(worksheet,HEADER_ROW,GROUP_TIME_COL,HEADER_ROW,GROUP_POWER_COL,"Aggregated",NULL);
+    worksheet_write_string (worksheet, TITLE_ROW, GROUP_TIME_COL, "time", NULL);//d2
+    worksheet_write_string (worksheet, TITLE_ROW, GROUP_CURRENT_COL, "current", NULL);//e2
+    worksheet_write_string (worksheet, TITLE_ROW, GROUP_MAS_COL, "mAs", NULL);//b2
+    worksheet_write_string (worksheet, TITLE_ROW, GROUP_POWER_COL, "power", NULL);//f2
 
-    worksheet_merge_range(worksheet,0,6,0,7,"Average",NULL);
-    worksheet_write_string (worksheet, 1, 6, "time", NULL);//d2
-    worksheet_write_string (worksheet, 1, 7, "current", NULL);//e2
+    worksheet_merge_range(worksheet,HEADER_ROW,AVG_TIME_COL,HEADER_ROW,AVG_CURRENT_COL,"Average",NULL);
+    worksheet_write_string (worksheet, TITLE_ROW, AVG_TIME_COL, "time", NULL);//d2
+    worksheet_write_string (worksheet, TITLE_ROW, AVG_CURRENT_COL, "current", NULL);//e2
 
     return worksheet;
 }
 
 void fillWorkSheetPowerData(pPowerInfo pwr, lxw_worksheet* worksheet){
     for(int i=0;i<pwr->fullData->size;i++) {
-        worksheet_write_number(worksheet, i + 2, 0, pwr->fullData->data[i].time, NULL);
-        worksheet_write_number(worksheet, i + 2, 1, pwr->fullData->data[i].current, NULL);
-        worksheet_write_number(worksheet, i + 2, 2, pwr->fullData->data[i].power, NULL);
+        worksheet_write_number(worksheet, i + START_ROW, FULL_TIME_COL, pwr->fullData->data[i].time, NULL);
+        worksheet_write_number(worksheet, i + START_ROW, FULL_CURRENT_COL, pwr->fullData->data[i].current, NULL);
+        worksheet_write_number(worksheet, i + START_ROW, FULL_POWER_COL, pwr->fullData->data[i].power, NULL);
+        worksheet_write_number(worksheet, i + START_ROW, FULL_MAS_COL, pwr->fullData->data[i].mAmpsS, NULL);
     }
-    double avg=0.0;
     for(int i=0;i<pwr->groupData->size;i++){
-        worksheet_write_number (worksheet, i+2, 3, pwr->groupData->data[i].time, NULL);
-        worksheet_write_number (worksheet, i+2, 4, pwr->groupData->data[i].current, NULL);
-        worksheet_write_number (worksheet, i+2, 5, pwr->groupData->data[i].power, NULL);
-        if(i>1 && i< pwr->groupData->size-2){
-            avg+=pwr->groupData->data[i].current/(pwr->groupData->size-4);
-        }
+        worksheet_write_number (worksheet, i+START_ROW, GROUP_TIME_COL, pwr->groupData->data[i].time, NULL);
+        worksheet_write_number (worksheet, i+START_ROW, GROUP_CURRENT_COL, pwr->groupData->data[i].current, NULL);
+        worksheet_write_number (worksheet, i+START_ROW, GROUP_POWER_COL, pwr->groupData->data[i].power, NULL);
+        worksheet_write_number(worksheet, i + START_ROW, GROUP_MAS_COL, pwr->groupData->data[i].mAmpsS, NULL);
     }
     int limit = pwr->groupData->size;
-    worksheet_write_number (worksheet, 2, 6, pwr->groupData->data[0].time, NULL);
-    worksheet_write_number (worksheet, 2, 7, pwr->groupData->data[0].current, NULL);
-    worksheet_write_number (worksheet, 3, 6, pwr->groupData->data[1].time, NULL);
-    worksheet_write_number (worksheet, 3, 7, pwr->groupData->data[1].current, NULL);
+    worksheet_write_number (worksheet, START_ROW, AVG_TIME_COL, pwr->groupData->data[0].time, NULL);
+    worksheet_write_number (worksheet, START_ROW, AVG_CURRENT_COL, pwr->groupData->data[0].current, NULL);
+    worksheet_write_number (worksheet, START_ROW+1, AVG_TIME_COL, pwr->groupData->data[1].time, NULL);
+    worksheet_write_number (worksheet, START_ROW+1, AVG_CURRENT_COL, pwr->groupData->data[1].current, NULL);
 
-    worksheet_write_number (worksheet, 4, 6, pwr->groupData->data[1].time, NULL);
-    worksheet_write_number (worksheet, 4, 7, avg, NULL);
-    worksheet_write_number (worksheet, 5, 6, pwr->groupData->data[limit-2].time, NULL);
-    worksheet_write_number (worksheet, 5, 7, avg, NULL);
+    worksheet_write_number (worksheet, START_ROW+2, AVG_TIME_COL, pwr->groupData->data[1].time, NULL);
+    worksheet_write_number (worksheet, START_ROW+2, AVG_CURRENT_COL, pwr->runCurrent_mA, NULL);
+    worksheet_write_number (worksheet, START_ROW+3, AVG_TIME_COL, pwr->groupData->data[limit-2].time, NULL);
+    worksheet_write_number (worksheet, START_ROW+3, AVG_CURRENT_COL, pwr->runCurrent_mA, NULL);
 
-    worksheet_write_number (worksheet, 6, 6, pwr->groupData->data[limit-2].time, NULL);
-    worksheet_write_number (worksheet, 6, 7, pwr->groupData->data[limit-2].current, NULL);
-    worksheet_write_number (worksheet, 7, 6, pwr->groupData->data[limit-1].time, NULL);
-    worksheet_write_number (worksheet, 7, 7, pwr->groupData->data[limit-1].current, NULL);
+    worksheet_write_number (worksheet, START_ROW+4, AVG_TIME_COL, pwr->groupData->data[limit-2].time, NULL);
+    worksheet_write_number (worksheet, START_ROW+4, AVG_CURRENT_COL, pwr->groupData->data[limit-2].current, NULL);
+    worksheet_write_number (worksheet, START_ROW+5, AVG_TIME_COL, pwr->groupData->data[limit-1].time, NULL);
+    worksheet_write_number (worksheet, START_ROW+5, AVG_CURRENT_COL, pwr->groupData->data[limit-1].current, NULL);
 
 }
 
@@ -228,18 +256,18 @@ void createCurrentChart(lxw_workbook* workbook, lxw_worksheet *worksheet, pPower
     int gsize=pwr->groupData->size;
 
     lxw_chart_series*  series = chart_add_series(chart, NULL, NULL);
-    chart_series_set_categories(series, filename, 2, 0, fsize+1, 0);
-    chart_series_set_values(series,     filename, 2, 1, fsize+1, 1);
+    chart_series_set_categories(series, filename, START_ROW, FULL_TIME_COL, fsize+1, FULL_TIME_COL);
+    chart_series_set_values(series,     filename, START_ROW, FULL_CURRENT_COL, fsize+1, FULL_CURRENT_COL);
     chart_series_set_name_range(series, filename, 0, 0);
 
     series = chart_add_series(chart, NULL, NULL);
-    chart_series_set_categories(series, filename, 2, 3, gsize+1, 3);
-    chart_series_set_values(series,     filename, 2, 4, gsize+1, 4);
+    chart_series_set_categories(series, filename, START_ROW, GROUP_TIME_COL, gsize+1, GROUP_TIME_COL);
+    chart_series_set_values(series,     filename, START_ROW, GROUP_CURRENT_COL, gsize+1, GROUP_CURRENT_COL);
     chart_series_set_name_range(series, filename, 0, 3);
 
     series = chart_add_series(chart, NULL, NULL);
-    chart_series_set_categories(series, filename, 2, 6, 8, 6);
-    chart_series_set_values(series,     filename, 2, 7, 8, 7);
+    chart_series_set_categories(series, filename, START_ROW, AVG_TIME_COL, START_ROW+6, AVG_TIME_COL);
+    chart_series_set_values(series,     filename, START_ROW, AVG_CURRENT_COL, START_ROW+6, AVG_CURRENT_COL);
     chart_series_set_name_range(series, filename, 0, 6);
 
 
@@ -251,7 +279,7 @@ void createCurrentChart(lxw_workbook* workbook, lxw_worksheet *worksheet, pPower
     /* Set an Excel chart style. */
     chart_set_style(chart, 10);
     /* Insert the chart into the worksheet. */
-    worksheet_insert_chart(worksheet, CELL("H2"), chart);
+    worksheet_insert_chart(worksheet, CELL("I9"), chart);
 }
 
 void createPowerSheet(lxw_workbook* workbook,char* filename, pPowerInfo pwr){

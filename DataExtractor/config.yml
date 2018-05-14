@@ -1,5 +1,13 @@
 #local config
 
+
+#Estimation, configuration for estimate the cycle time and the power in an hour
+#   cycles: Number of cycles executed (for estimate)
+#   interval: seconds every one c
+estimation:
+   cycles: 2520
+   interval: 8
+
 #Data of the platforms
 # - name: display name
 platforms:
