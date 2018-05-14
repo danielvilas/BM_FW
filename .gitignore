@@ -1,2 +1,4 @@
 
 \.DS_Store
+/DataExtractor/cmake-build-debug
+/DataExtractor/.idea
