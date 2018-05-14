@@ -9,7 +9,7 @@
 #include <xlsxwriter.h>
 
 
-void initAvg(pPowerInfo pwr_avg){
+void initAvg(pPowerInfo pwr_avg, pMemInfo mem_avg){
     pwr_avg->steadyCurrent_mA=0.0;
     pwr_avg->runCurrent_mA=0.0;
     pwr_avg->runEnergy_J=0.0;
@@ -18,9 +18,16 @@ void initAvg(pPowerInfo pwr_avg){
     pwr_avg->time_ms=0.0;
     pwr_avg->cycleTime_ms=0.0;
     pwr_avg->estEnergy_mAh=0.0;
+
+    mem_avg->cpuAvg=0.0;
+    mem_avg->maxCpu=0.0;
+    mem_avg->memAvgKb=0.0;
+    mem_avg->memMaxKb=0.0;
+    mem_avg->netOutKb=0.0;
+    mem_avg->netInKb=0.0;
 }
 
-void finishAvg(pConfig cfg, pPowerInfo pwr_avg, int i){
+void finishAvg(pConfig cfg, pPowerInfo pwr_avg, pMemInfo mem_avg, int i){
     pwr_avg->steadyCurrent_mA/=i;
     pwr_avg->runCurrent_mA/=i;
     pwr_avg->runEnergy_J/=i;
@@ -42,6 +49,29 @@ void finishAvg(pConfig cfg, pPowerInfo pwr_avg, int i){
       data.powerEstimation=eCycle/3600*3600/stdPeriod;
      */
     pwr_avg->estEnergy_mAh=(eCycle/3600)*(3600/cfg->interval);
+
+
+    mem_avg->cpuAvg/=i;
+    mem_avg->maxCpu/=i;
+    mem_avg->memAvgKb/=i;
+    mem_avg->memMaxKb/=i;
+    mem_avg->netOutKb/=i;
+    mem_avg->netInKb/=i;
+
+}
+
+void updateMemAvgAndFree(pMemInfo mem_avg, pMemInfo mem){
+    mem_avg->cpuAvg+=mem->cpuAvg;
+    mem_avg->maxCpu+=mem->maxCpu;
+    mem_avg->memAvgKb+=mem->memAvgKb;
+    mem_avg->memMaxKb+=mem->memMaxKb;
+    mem_avg->netOutKb+=mem->netOutKb;
+    mem_avg->netInKb+=mem->netInKb;
+
+
+    free(mem->entries->data);
+    free(mem->entries);
+    free(mem);
 }
 
 void updatePowerAvgAndFree(pPowerInfo pwr_avg, pPowerInfo pwr){
@@ -72,15 +102,16 @@ void executeOne(char* dir,pConfig cfg, pName plat, pName lang, pName proto ){
     //For each File
     int i=1;
     tPowerInfo pwr_avg;
+    tMemInfo mem_avg;
 
-    initAvg(&pwr_avg);
+    initAvg(&pwr_avg, &mem_avg);
     while(1){
         fillNameSuffixIndex(filename,lang,proto,i,"MEM_");
-        pvMemInfoEntry mem =parseMemData(dir,plat,lang,proto,i);
+        pMemInfo mem =parseMemData(dir,plat,lang,proto,i);
         if(mem==NULL)break;
-        createMemSheet(workbook,filename,mem);
-        free(mem->data);
-        free(mem);
+        createMemSheet(workbook,filename,mem->entries);
+        updateMemAvgAndFree(&mem_avg, mem);
+
 
         fillNameSuffixIndex(filename,lang,proto,i,"PWR_");
         pPowerInfo pwr=parsePowerData(dir,plat,lang,proto,1);
@@ -93,7 +124,7 @@ void executeOne(char* dir,pConfig cfg, pName plat, pName lang, pName proto ){
     //End for each file
     i--;
 
-    finishAvg(cfg,&pwr_avg,i);
+    finishAvg(cfg,&pwr_avg,&mem_avg,i);
 
     workbook_close(workbook);
     printf("Report: %s saved\n",filePath);

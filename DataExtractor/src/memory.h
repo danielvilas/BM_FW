@@ -34,7 +34,18 @@ struct sMemInfoEntry{
 STRUCT_TYPES(MemInfoEntry)
 VECTOR(MemInfoEntry)
 
-pvMemInfoEntry parseMemData(char* dir,pName plat, pName lang, pName proto, int i);
+struct sMemInfo{
+    float memAvgKb;
+    float memMaxKb;
+    float cpuAvg;
+    float maxCpu;
+    float netOutKb;
+    float netInKb;
+    pvMemInfoEntry entries;
+};
+STRUCT_TYPES(MemInfo)
+
+pMemInfo parseMemData(char* dir,pName plat, pName lang, pName proto, int i);
 void createMemSheet(lxw_workbook* workbook,char* filename, pvMemInfoEntry mem);
 
 #endif //DATAEXTRACTOR_MEMORY_H

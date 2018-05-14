@@ -96,7 +96,7 @@ pMemInfoEntry readDataMem(FILE* file, int lines){
     return data;
 }
 
-pvMemInfoEntry parseMemData(char* dir,pName plat, pName lang, pName proto, int i){
+pMemInfo parseMemData(char* dir,pName plat, pName lang, pName proto, int i){
     FILE* file = openFileMem(dir,plat,lang,proto,i);
     if(file==0) return 0;
 
@@ -113,8 +113,38 @@ pvMemInfoEntry parseMemData(char* dir,pName plat, pName lang, pName proto, int i
 
     pvMemInfoEntry ret= malloc(sizeof(tvMemInfoEntry));
     ret->data=data;
-    ret->size=line-1;
-    return ret;
+    ret->size=line- 1;
+
+    pMemInfo out = malloc(sizeof(tMemInfo));
+    out->entries=ret;
+
+    out->cpuAvg=0.0;
+    out->maxCpu=0.0;
+    out->memAvgKb=0.0;
+    out->memMaxKb=0.0;
+    out->netOutKb=0.0;
+    out->netInKb=0.0;
+
+    for(int i = 0;i<ret->size;i++){
+
+        out->cpuAvg+=data[i].dcpu/(ret->size);
+        if(data[i].dcpu>out->maxCpu){
+            out->maxCpu=data[i].dcpu;
+        }
+        out->memAvgKb+=data[i].mem/(ret->size);
+        if(data[i].mem>out->memMaxKb) {
+            out->memMaxKb = data[i].mem;
+        }
+        out->netOutKb+=data[i].oct_out;
+        out->netInKb+=data[i].oct_in;
+    }
+
+    out->memAvgKb/=1024;
+    out->memMaxKb/=1024;
+    out->netOutKb/=1024;
+    out->netInKb/=1024;
+
+    return out;
 }
 
 void addMemSerie(char *filename, tvMemInfoEntry *mem, lxw_chart *chart, int field) {

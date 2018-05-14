@@ -112,6 +112,7 @@ void parseName(yaml_token_t token, pConfig cfg){
                 case MODE_LANGS: cfg->firstLang=newPlatform; break;
                 case MODE_PLATFORMS: cfg->firstPlatform=newPlatform; break;
                 case MODE_PROTOCOLS: cfg->firstProtocol=newPlatform; break;
+                default: break;
             }
 
             name_mode=NAME_DATA;
@@ -172,9 +173,9 @@ void parseEstimation(yaml_token_t token, pConfig cfg){
         }
         if(lastToken==VALUE){
             if(lastParam==CYCLES_PAR){
-                cfg->cycles=atoi(token.data.scalar.value);
+                cfg->cycles=atoi((const char *)token.data.scalar.value);
             }else if(lastParam==INTERVAL_PAR){
-                cfg->interval=atoi(token.data.scalar.value);
+                cfg->interval=atoi((const char *)token.data.scalar.value);
             }
             lastToken=TOK_NONE;
             return;
