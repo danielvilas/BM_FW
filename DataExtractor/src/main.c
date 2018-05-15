@@ -90,6 +90,35 @@ void updatePowerAvgAndFree(pPowerInfo pwr_avg, pPowerInfo pwr){
 
 }
 
+void printJsonData(char*dir, pName plat, pName lang, pName proto,pMemInfo mem_avg,pPowerInfo pwr_avg){
+    char filename[FILENAME_MAX];
+    char filePath[FILENAME_MAX];
+    int w= fillName(filename,lang,proto);
+    w=sprintf(filePath,"%s/%s/%s.json",dir,plat->name,filename);
+    filePath[w]='\0';
+    FILE * json=fopen(filePath,"w");
+    fprintf(json,"{\n");
+    fprintf(json,"  \"platform\": \"%s\",\n",plat->name);
+    fprintf(json,"  \"lang\": \"%s\",\n",lang->name);
+    fprintf(json,"  \"protocol\": \"%s\",\n",proto->name);
+    fprintf(json,"  \"memAvgKb\": %f,\n",mem_avg->memAvgKb);
+    fprintf(json,"  \"memMaxKb\": %f,\n",mem_avg->memMaxKb);
+    fprintf(json,"  \"cpuAvg\": %f,\n",mem_avg->cpuAvg);
+    fprintf(json,"  \"maxCpu\": %f,\n",mem_avg->maxCpu);
+    fprintf(json,"  \"netOutKb\": %f,\n",mem_avg->netOutKb);
+    fprintf(json,"  \"netInKb\": %f,\n",mem_avg->netInKb);
+    fprintf(json,"  \"steadyCurrent_mA\": %f,\n",pwr_avg->steadyCurrent_mA);
+    fprintf(json,"  \"runCurrent_mA\": %f,\n",pwr_avg->runCurrent_mA);
+    fprintf(json,"  \"runEnergy_J\": %f,\n",pwr_avg->runEnergy_J);
+    fprintf(json,"  \"runEnergy_mAs\": %f,\n",pwr_avg->runEnergy_mAs);
+    fprintf(json,"  \"runEnergy_mAh\": %f,\n",pwr_avg->runEnergy_mAh);
+    fprintf(json,"  \"time_ms\": %f,\n",pwr_avg->time_ms);
+    fprintf(json,"  \"cycleTime_ms\": %f,\n",pwr_avg->cycleTime_ms);
+    fprintf(json,"  \"estEnergy_mAh\": %f\n",pwr_avg->estEnergy_mAh);
+    fprintf(json,"}\n");
+    fclose(json);
+}
+
 void executeOne(char* dir,pConfig cfg, pName plat, pName lang, pName proto ){
     char filename[FILENAME_MAX];
     char filePath[FILENAME_MAX];
@@ -128,6 +157,8 @@ void executeOne(char* dir,pConfig cfg, pName plat, pName lang, pName proto ){
 
     workbook_close(workbook);
     printf("Report: %s saved\n",filePath);
+    printJsonData(dir,plat,lang, proto,&mem_avg,&pwr_avg);
+
     return;
 }
 
