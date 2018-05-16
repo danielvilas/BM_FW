@@ -8,7 +8,7 @@ set(CMAKE_C_STANDARD 99)
 include(libYaml)
 include(libXlsx)
 
-set(CONFIG_SOURCE_FILES src/config.c src/config.h src/common.c src/common.h)
+set(CONFIG_SOURCE_FILES src/config.c src/config.h src/common.c src/common.h src/process.c src/process.h)
 set(MEMORY_SOURCE_FILES src/memory.c src/memory.h )
 set(POWER_SOURCE_FILES src/power.c src/power.h)
 
