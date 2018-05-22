@@ -29,7 +29,7 @@ int execute(pConfig cfg, pPlatform plat, pLang lang, pProtocol proto, int i){
         
     }
     closeRemoteProc(&remoteProc);
-    sleep(3);
+    sleep(6);
     closeDataLogger(&rp_datalogger);
     return getRemoteProc(&remoteProc,cfg,plat,lang, proto,i);
 }
