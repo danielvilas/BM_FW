@@ -1,0 +1,31 @@
+#local config
+
+#../DataExtractor/build/DataExtractor dataExtractor.yml .
+#Estimation, configuration for estimate the cycle time and the power in an hour
+#   cycles: Number of cycles executed (for estimate)
+#   interval: seconds every one c
+estimation:
+   cycles: 2520
+   interval: 8
+
+#Data of the platforms
+# - name: display name
+platforms:
+ - name: RaspberryPi
+# - name: BeagleBone
+
+#Data of the protocols
+# - name: display name
+protocols:
+ - name: Kafka
+ - name: Mqtt
+ - name: Soap
+ - name: Rest
+   
+#Data of the languages
+# - name: display name
+languages:
+ - name: C
+ - name: Node
+# - name: Java
+# - name: Python
