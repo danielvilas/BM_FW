@@ -1,0 +1,52 @@
+#LD_LIBRARY_PATH=/opt/redpitaya/lib ../coordinator/bmCoordinator/bmCoordinator coordinator.yml RaspberryPi
+#local config
+sshCmd: /usr/bin/ssh
+dataloggerCmd: /root/rp_datalogger/dataloger
+times: 1
+
+#Data of the platforms
+# - name: display name
+#   host: host name for SSH
+#   user: User with sudo nopasswd permision
+#   key: file of the key for the user
+
+platforms:
+ - name: RaspberryPi
+   host: pi-phd.local
+   user: pi
+   key: ~/pi-phd.key
+ - name: BeagleBone
+   host: localhost
+   user: daniel
+   key: ~/.ssh/id_rsa
+
+#Data of the protocols
+# - name: display name
+#   param: value for programs must be the same in all programs
+protocols:
+ - name: Kafka
+   param: KAFKA
+ - name: Mqtt
+   param: MQTT
+ - name: Soap
+   param: WS
+ - name: Rest
+   param: REST
+   
+#Data of the languages
+# - name: display name
+#   dir: directory on the platform, must be the same in all platforms
+#   cmd: command to use on the directory, use "%s" (one) to receive the protocol
+languages:
+ - name: C
+   dir: bm_c
+   cmd: ../build/bmc_full -d 0Initial -p %s
+# - name: Node
+#   dir: bm_node
+#   cmd: node . -d 0Initial -p %s
+# - name: Java
+#   dir: bm_java
+#   cmd: java -jar full/target/full-1.0-SNAPSHOT-jar-with-dependencies.jar -d 0Initial -p %s
+# - name: Python
+#   dir: bm_python
+#   cmd: python3 main.py -d 0Initial -p %s

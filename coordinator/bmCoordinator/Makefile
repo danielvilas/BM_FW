@@ -9,7 +9,7 @@ OBJS=$(SRCS:.c=.o)
 all: bmCoordinator
 
 bmCoordinator: $(OBJS)
-	$(CC) $(LDFLAGS) $(LDLIBS) $(OBJS) -o bmCoordinator
+	$(CC) $(LDFLAGS) $(OBJS) -o bmCoordinator $(LDLIBS)
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
