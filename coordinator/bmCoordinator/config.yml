@@ -1,6 +1,6 @@
 #local config
 sshCmd: /usr/bin/ssh
-dataloggerCmd: ../rp_datalogger/Debug/rp_datalogger
+dataloggerCmd: ../rp_datalogger_dummy/datalogger_dummy
 times: 1
 
 #Data of the platforms
