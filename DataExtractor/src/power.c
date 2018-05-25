@@ -73,6 +73,7 @@ pPowerInfo readDataPower(FILE* file, int lines, int total){
 
         long long time =entry.currentTs-baseTs;
         data[fline].time=time;
+        data[fline].flag=entry.flag;
 
         entry.chPlus = entry.chPlus*CH1_MUL;
         entry.chMinus = entry.chMinus*CH2_MUL;
@@ -88,7 +89,6 @@ pPowerInfo readDataPower(FILE* file, int lines, int total){
             data[fline].mAmpsS=(data[fline].current+data[fline-1].current)/2*
                               (entry.currentTs-lastRead.currentTs)/1000;
         }
-
         if(lastFlag!=entry.flag){
             if(fline!=0){
                 res_data[rline].current=res_data[rline].current/cnt;
@@ -101,6 +101,7 @@ pPowerInfo readDataPower(FILE* file, int lines, int total){
             res_data[rline].current=data[fline].current;
             res_data[rline].power=data[fline].power;
             res_data[rline].mAmpsS=data[fline].mAmpsS;
+            res_data[rline].flag=data[fline].flag;
             cnt=1;
         }else{
             res_data[rline].current+=data[fline].current;
@@ -187,27 +188,31 @@ pPowerInfo parsePowerData(char* dir,pName plat, pName lang, pName proto, int i){
 #define START_ROW 2
 
 #define FULL_TIME_COL 0
-#define FULL_CURRENT_COL 1
-#define FULL_MAS_COL 2
-#define FULL_POWER_COL 3
-#define GROUP_TIME_COL 4
-#define GROUP_CURRENT_COL 5
-#define GROUP_MAS_COL 6
-#define GROUP_POWER_COL 7
-#define AVG_TIME_COL 8
-#define AVG_CURRENT_COL 9
+#define FULL_FLAG_COL 1
+#define FULL_CURRENT_COL 2
+#define FULL_MAS_COL 3
+#define FULL_POWER_COL 4
+#define GROUP_TIME_COL 5
+#define GROUP_FLAG_COL 6
+#define GROUP_CURRENT_COL 7
+#define GROUP_MAS_COL 8
+#define GROUP_POWER_COL 9
+#define AVG_TIME_COL 10
+#define AVG_CURRENT_COL 11
 
 lxw_worksheet* createPowerWorkSheet(lxw_workbook* workbook,char* filename){
     lxw_worksheet *worksheet = workbook_add_worksheet(workbook, filename);
     worksheet_set_footer(worksheet,filename);
     worksheet_merge_range(worksheet,HEADER_ROW,FULL_TIME_COL,HEADER_ROW,FULL_POWER_COL,"Full",NULL);
     worksheet_write_string (worksheet, TITLE_ROW, FULL_TIME_COL, "time", NULL);//a2
+    worksheet_write_string (worksheet, TITLE_ROW, FULL_FLAG_COL, "flag", NULL);//a2
     worksheet_write_string (worksheet, TITLE_ROW, FULL_CURRENT_COL, "current", NULL);//b2
     worksheet_write_string (worksheet, TITLE_ROW, FULL_MAS_COL, "mAs", NULL);//b2
     worksheet_write_string (worksheet, TITLE_ROW, FULL_POWER_COL, "power", NULL);//c2
 
     worksheet_merge_range(worksheet,HEADER_ROW,GROUP_TIME_COL,HEADER_ROW,GROUP_POWER_COL,"Aggregated",NULL);
     worksheet_write_string (worksheet, TITLE_ROW, GROUP_TIME_COL, "time", NULL);//d2
+    worksheet_write_string (worksheet, TITLE_ROW, GROUP_FLAG_COL, "flag", NULL);//d2
     worksheet_write_string (worksheet, TITLE_ROW, GROUP_CURRENT_COL, "current", NULL);//e2
     worksheet_write_string (worksheet, TITLE_ROW, GROUP_MAS_COL, "mAs", NULL);//b2
     worksheet_write_string (worksheet, TITLE_ROW, GROUP_POWER_COL, "power", NULL);//f2
@@ -225,12 +230,14 @@ void fillWorkSheetPowerData(pPowerInfo pwr, lxw_worksheet* worksheet){
         worksheet_write_number(worksheet, i + START_ROW, FULL_CURRENT_COL, pwr->fullData->data[i].current, NULL);
         worksheet_write_number(worksheet, i + START_ROW, FULL_POWER_COL, pwr->fullData->data[i].power, NULL);
         worksheet_write_number(worksheet, i + START_ROW, FULL_MAS_COL, pwr->fullData->data[i].mAmpsS, NULL);
+        worksheet_write_number(worksheet, i + START_ROW, FULL_FLAG_COL, pwr->fullData->data[i].flag, NULL);
     }
     for(int i=0;i<pwr->groupData->size;i++){
         worksheet_write_number (worksheet, i+START_ROW, GROUP_TIME_COL, pwr->groupData->data[i].time, NULL);
         worksheet_write_number (worksheet, i+START_ROW, GROUP_CURRENT_COL, pwr->groupData->data[i].current, NULL);
         worksheet_write_number (worksheet, i+START_ROW, GROUP_POWER_COL, pwr->groupData->data[i].power, NULL);
         worksheet_write_number(worksheet, i + START_ROW, GROUP_MAS_COL, pwr->groupData->data[i].mAmpsS, NULL);
+        worksheet_write_number(worksheet, i + START_ROW, GROUP_FLAG_COL, pwr->groupData->data[i].flag, NULL);
     }
     int limit = pwr->groupData->size;
     worksheet_write_number (worksheet, START_ROW, AVG_TIME_COL, pwr->groupData->data[0].time, NULL);

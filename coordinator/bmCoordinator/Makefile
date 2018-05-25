@@ -1,6 +1,5 @@
 CFLAGS  = -g -std=gnu99 -Wall -Werror
-CFLAGS += -I/opt/redpitaya/include
-LDFLAGS = -L/opt/redpitaya/lib
+LDFLAGS =
 LDLIBS = -lm -lpthread -lyaml
 
 SRCS=$(wildcard *.c)

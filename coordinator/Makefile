@@ -2,11 +2,11 @@
 
 All:
 	@echo "----------Building project:[ rp_datalogger - Debug ]----------"
-	@cd "rp_datalogger" && "$(MAKE)" -f  "rp_datalogger.mk"
+	@cd "rp_datalogger" && "$(MAKE)" -f  "Makefile"
 	@echo "----------Building project:[ bmCoordinator - Debug ]----------"
-	@cd "bmCoordinator" && "$(MAKE)" -f  "bmCoordinator.mk"
+	@cd "bmCoordinator" && "$(MAKE)" -f  "Makefile"
 clean:
 	@echo "----------Cleaning project:[ rp_datalogger - Debug ]----------"
-	@cd "rp_datalogger" && "$(MAKE)" -f  "rp_datalogger.mk"  clean
+	@cd "rp_datalogger" && "$(MAKE)" -f  "Makefile"  clean
 	@echo "----------Cleaning project:[ bmCoordinator - Debug ]----------"
-	@cd "bmCoordinator" && "$(MAKE)" -f  "bmCoordinator.mk" clean
+	@cd "bmCoordinator" && "$(MAKE)" -f  "Makefile" clean

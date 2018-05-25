@@ -21,6 +21,7 @@ struct sPowerInfoEntry{
     float current; //% cpu Total
     float power;
     float mAmpsS;
+    int flag;
 };
 STRUCT_TYPES(PowerInfoEntry)
 VECTOR(PowerInfoEntry)

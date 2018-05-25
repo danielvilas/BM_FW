@@ -115,3 +115,21 @@ void ucaseFile(char* file){
         s++;
     }
 }
+
+long long current_timestamp() {
+    struct timeval te;
+    gettimeofday(&te, NULL); // get current time
+    long long milliseconds = te.tv_sec * 1000LL + te.tv_usec / 1000; // caculate milliseconds
+    // printf("milliseconds: %lld\n", milliseconds);
+    return milliseconds;
+}
+
+
+int waitRead(int seconds, pProcess proc){
+    long long limit = current_timestamp()+seconds *1000;
+    while(1){
+        int r = dumpPipe(proc);
+        if(r==-1)return 1;
+        if(current_timestamp()>limit) return 0;
+    }
+}

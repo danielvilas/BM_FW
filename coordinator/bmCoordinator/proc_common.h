@@ -25,6 +25,8 @@ int closeProc(pProcess proc);
 int dumpPipe(pProcess proc);
 void ucaseFile(char* file);
 
+int waitRead(int seconds, pProcess proc);
+
 #define PIPE_RE 0
 #define PIPE_WE 1
 
