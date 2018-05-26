@@ -44,9 +44,9 @@ languages:
  - name: Node
    dir: bm_node
    cmd: node . -d 0Initial -p %s
-# - name: Java
-#   dir: bm_java
-#   cmd: java -jar full/target/full-1.0-SNAPSHOT-jar-with-dependencies.jar -d 0Initial -p %s
-# - name: Python
-#   dir: bm_python
-#   cmd: python3 main.py -d 0Initial -p %s
+ - name: Java
+   dir: bm_java
+   cmd: java -jar full/target/full-1.0-SNAPSHOT-jar-with-dependencies.jar -d 0Initial -p %s >/dev/null
+ - name: Python
+   dir: bm_python
+   cmd: python3 main.py -d 0Initial -p %s

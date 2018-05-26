@@ -1,0 +1,30 @@
+Config{server='server.local', continous=false, dataset='0Initial', proto=MQTT}
+Connecting to: tcp://server.local:1883
+data-20170716-15.csv
+data-20170716-16.csv
+data-20170716-17.csv
+data-20170716-18.csv
+data-20170716-19.csv
+data-20170716-20.csv
+data-20170716-21.csv
+I'm done!!
+Files: 7
+Samples: 2580480
+Packets: 2520
+Messages: 2520
+Total time: 110909 ms
+argv[0]: lpm
+argv[1]: -o
+argv[2]: JAVA_MQTT_MEM_1.txt
+argv[3]: -s
+argv[4]: java
+argv[5]: -jar
+argv[6]: full/target/full-1.0-SNAPSHOT-jar-with-dependencies.jar
+argv[7]: -d
+argv[8]: 0Initial
+argv[9]: -p
+argv[10]: MQTT
+Exec: java -jar full/target/full-1.0-SNAPSHOT-jar-with-dependencies.jar -d 0Initial -p MQTT 
+Monitors out to: JAVA_MQTT_MEM_1.txt
+Run Time: 111581 ms
+Monitored data written to: JAVA_MQTT_MEM_1.txt
