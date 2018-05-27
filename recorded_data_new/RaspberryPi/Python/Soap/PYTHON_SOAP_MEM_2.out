@@ -1,0 +1,31 @@
+Server: server.local
+Continous: False
+DataSet: 0Initial
+Protocol: WS
+Reading DataSet: ./data/sets/0Initial
+./data/sets/0Initial/data-20170716-15.csv
+./data/sets/0Initial/data-20170716-16.csv
+./data/sets/0Initial/data-20170716-17.csv
+./data/sets/0Initial/data-20170716-18.csv
+./data/sets/0Initial/data-20170716-19.csv
+./data/sets/0Initial/data-20170716-20.csv
+./data/sets/0Initial/data-20170716-21.csv
+Files: 7
+Samples: 2580480
+Packets: 2520
+Messages: 2520
+Time: 388726.383495ms
+argv[0]: lpm
+argv[1]: -o
+argv[2]: PYTHON_SOAP_MEM_2.txt
+argv[3]: -s
+argv[4]: python3
+argv[5]: main.py
+argv[6]: -d
+argv[7]: 0Initial
+argv[8]: -p
+argv[9]: WS
+Exec: python3 main.py -d 0Initial -p WS 
+Monitors out to: PYTHON_SOAP_MEM_2.txt
+Run Time: 404502 ms
+Monitored data written to: PYTHON_SOAP_MEM_2.txt

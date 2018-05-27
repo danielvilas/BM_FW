@@ -1,0 +1,34 @@
+Hello World
+Start 0.1.0
+Parsing full
+Protocol: WS
+DataSet: 0Initial
+Server: server.local
+Mode: Test
+http://server.local:9090/ws
+Reading Dataset: 0Initial
+data-20170716-15.csv
+data-20170716-16.csv
+data-20170716-17.csv
+data-20170716-18.csv
+data-20170716-19.csv
+data-20170716-20.csv
+data-20170716-21.csv
+Files: 7
+Samples: 2580480
+Packets: 2520
+Messages: 2520
+Time: 35386.406250 ms
+argv[0]: lpm
+argv[1]: -o
+argv[2]: C_SOAP_MEM_5.txt
+argv[3]: -s
+argv[4]: ../build/bmc_full
+argv[5]: -d
+argv[6]: 0Initial
+argv[7]: -p
+argv[8]: WS
+Exec: ../build/bmc_full -d 0Initial -p WS 
+Monitors out to: C_SOAP_MEM_5.txt
+Run Time: 35534 ms
+Monitored data written to: C_SOAP_MEM_5.txt

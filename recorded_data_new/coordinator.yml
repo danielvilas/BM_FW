@@ -2,7 +2,7 @@
 #local config
 sshCmd: /usr/bin/ssh
 dataloggerCmd: /root/rp_datalogger/dataloger
-times: 1
+times: 5
 
 #Data of the platforms
 # - name: display name
