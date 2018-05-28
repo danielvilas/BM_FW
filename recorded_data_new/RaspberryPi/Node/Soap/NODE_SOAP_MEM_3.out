@@ -19,9 +19,8 @@ Samples: 2580480
 Packets: 2520
 Pending Messages 1
 Pending Messages 1
-Pending Messages 1
 Messages: 2520
-Time: 242801.161232 ms
+Time: 243232.591456 ms
 argv[0]: lpm
 argv[1]: -o
 argv[2]: NODE_SOAP_MEM_3.txt
@@ -34,5 +33,5 @@ argv[8]: -p
 argv[9]: WS
 Exec: node . -d 0Initial -p WS 
 Monitors out to: NODE_SOAP_MEM_3.txt
-Run Time: 245736 ms
+Run Time: 246113 ms
 Monitored data written to: NODE_SOAP_MEM_3.txt

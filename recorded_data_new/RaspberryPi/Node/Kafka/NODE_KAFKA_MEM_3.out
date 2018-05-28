@@ -19,7 +19,7 @@ Files: 7
 Samples: 2580480
 Packets: 2520
 Messages: 2520
-Time: 230878.543446 ms
+Time: 228862.440833 ms
 argv[0]: lpm
 argv[1]: -o
 argv[2]: NODE_KAFKA_MEM_3.txt
@@ -32,5 +32,5 @@ argv[8]: -p
 argv[9]: KAFKA
 Exec: node . -d 0Initial -p KAFKA 
 Monitors out to: NODE_KAFKA_MEM_3.txt
-Run Time: 232652 ms
+Run Time: 230622 ms
 Monitored data written to: NODE_KAFKA_MEM_3.txt

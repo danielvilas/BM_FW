@@ -14,7 +14,7 @@ Files: 7
 Samples: 2580480
 Packets: 2520
 Messages: 2520
-Time: 388726.383495ms
+Time: 388965.134849ms
 argv[0]: lpm
 argv[1]: -o
 argv[2]: PYTHON_SOAP_MEM_2.txt
@@ -27,5 +27,5 @@ argv[8]: -p
 argv[9]: WS
 Exec: python3 main.py -d 0Initial -p WS 
 Monitors out to: PYTHON_SOAP_MEM_2.txt
-Run Time: 404502 ms
+Run Time: 402702 ms
 Monitored data written to: PYTHON_SOAP_MEM_2.txt

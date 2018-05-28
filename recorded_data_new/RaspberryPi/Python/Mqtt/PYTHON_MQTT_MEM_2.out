@@ -14,7 +14,7 @@ Files: 7
 Samples: 2580480
 Packets: 2520
 Messages: 2520
-Time: 341235.19489ms
+Time: 339097.634678ms
 argv[0]: lpm
 argv[1]: -o
 argv[2]: PYTHON_MQTT_MEM_2.txt
@@ -27,5 +27,5 @@ argv[8]: -p
 argv[9]: MQTT
 Exec: python3 main.py -d 0Initial -p MQTT 
 Monitors out to: PYTHON_MQTT_MEM_2.txt
-Run Time: 344640 ms
+Run Time: 342529 ms
 Monitored data written to: PYTHON_MQTT_MEM_2.txt
