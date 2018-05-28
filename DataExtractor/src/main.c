@@ -13,17 +13,26 @@
 
 void execute(char* dir, pConfig cfg){
     pName plat=cfg->firstPlatform;
+    int col=1;
     while(plat!=NULL){
+        char filePath[BUFFER_SIZE];
+        int w=sprintf(filePath,"%s/%s/SUMARY.xlsx",dir,plat->name);
+        filePath[w]='\0';
+        lxw_workbook  *workbook  = workbook_new(filePath);
+        lxw_worksheet *worksheet = createSumaryWorkSheet(workbook);
         pName lang = cfg->firstLang;
         while(lang!=NULL){
             pName proto=cfg->firstProtocol;
             while(proto!=NULL){
-                executeOne(dir,cfg,plat,lang,proto);
+                pExecuteInfo info =executeOne(dir,cfg,plat,lang,proto);
+                fillSumaryWorkSheet(worksheet, plat, lang, proto, &info->mem, &info->power, col++);
                 proto=proto->next;
             }
             lang=lang->next;
         }
         plat=plat->next;
+        workbook_close(workbook);
+        printf("Report: %s saved\n",filePath);
     }
 }
 

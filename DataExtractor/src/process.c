@@ -165,11 +165,11 @@ lxw_worksheet* createSumaryWorkSheet(lxw_workbook* workbook){
     return worksheet;
 }
 
-void executeOne(char* dir,pConfig cfg, pName plat, pName lang, pName proto ){
+pExecuteInfo executeOne(char* dir,pConfig cfg, pName plat, pName lang, pName proto ){
     char filename[FILENAME_MAX];
     char filePath[FILENAME_MAX];
     int w= fillName(filename,lang,proto);
-    if(w==0)return;;
+    if(w==0)return NULL;
     w=sprintf(filePath,"%s/%s/%s.xlsx",dir,plat->name,filename);
     filePath[w]='\0';
 
@@ -190,7 +190,7 @@ void executeOne(char* dir,pConfig cfg, pName plat, pName lang, pName proto ){
 
 
         fillNameSuffixIndex(filename,lang,proto,i,"PWR_");
-        pPowerInfo pwr=parsePowerData(dir,plat,lang,proto,1);
+        pPowerInfo pwr=parsePowerData(dir,plat,lang,proto,i);
         //if(pwr==NULL)break;
         createPowerSheet(workbook,filename,pwr);
 
@@ -206,6 +206,11 @@ void executeOne(char* dir,pConfig cfg, pName plat, pName lang, pName proto ){
     workbook_close(workbook);
     printf("Report: %s saved\n",filePath);
     printJsonData(dir,plat,lang, proto,&mem_avg,&pwr_avg);
-
-    return;
+    pExecuteInfo ret = malloc(sizeof(tExecuteInfo));
+    ret->power=pwr_avg;
+    ret->mem=mem_avg;
+    ret->plat=plat;
+    ret->lang=lang;
+    ret->proto=proto;
+    return ret;
 }

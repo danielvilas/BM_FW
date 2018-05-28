@@ -28,8 +28,11 @@ int readForCheckAndSizePower(FILE*  file, int* total){
             break;
 
         //printf(sInputBuf);
-        sscanf(sInputBuf, "%lld,%f,%f,%f,%i", &entry.currentTs, &entry.chPlus, &entry.chMinus,&entry.diff,
+        int r=sscanf(sInputBuf, "%lld,%f,%f,%f,%i", &entry.currentTs, &entry.chPlus, &entry.chMinus,&entry.diff,
                &entry.flag);
+        if(r<5){
+            break;
+        }
         //printf("%lld,%f,%f,%f,%ld\n", entry.currentTs , entry.chPlus, entry.chMinus,entry.diff,  entry.flag);
         if(lastFlag!=entry.flag){
             line++;
@@ -62,10 +65,12 @@ pPowerInfo readDataPower(FILE* file, int lines, int total){
         if(fgets(sInputBuf, BUFFER_SIZE-1, file)==NULL)
             break;
         //printf(sInputBuf);
-        sscanf(sInputBuf, "%lld,%f,%f,%f,%i", &entry.currentTs, &entry.chPlus, &entry.chMinus,&entry.diff,
+        int r=sscanf(sInputBuf, "%lld,%f,%f,%f,%i", &entry.currentTs, &entry.chPlus, &entry.chMinus,&entry.diff,
                &entry.flag);
         //printf("%lld,%f,%f,%f,%ld\n", entry.currentTs , entry.chPlus, entry.chMinus,entry.diff,  entry.flag);
-
+        if(r<5){
+            break;
+        }
         fline++;
         if(fline==0){
             baseTs=entry.currentTs;
