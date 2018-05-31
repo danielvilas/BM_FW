@@ -16,9 +16,9 @@ platforms:
    user: pi
    key: ~/pi-phd.key
  - name: BeagleBone
-   host: localhost
-   user: daniel
-   key: ~/.ssh/id_rsa
+   host: beaglebone.local
+   user: debian
+   key: ~/beaglebone.key
 
 #Data of the protocols
 # - name: display name

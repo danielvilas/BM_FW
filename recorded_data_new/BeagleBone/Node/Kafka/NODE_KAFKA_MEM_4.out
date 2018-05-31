@@ -1,0 +1,36 @@
+Benchmark Node
+Reading options
+{ dataset: '0Initial',
+  protocol: 'KAFKA',
+  server: 'server.local',
+  continuos: false,
+  printHelp: [Function] }
+kafkaClient_init
+data-20170716-15.csv
+Producer ready
+data-20170716-16.csv
+data-20170716-17.csv
+data-20170716-18.csv
+data-20170716-19.csv
+data-20170716-20.csv
+data-20170716-21.csv
+I'm done!!
+Files: 7
+Samples: 2580480
+Packets: 2520
+Messages: 2520
+Time: 285310.029476 ms
+argv[0]: lpm
+argv[1]: -o
+argv[2]: NODE_KAFKA_MEM_4.txt
+argv[3]: -s
+argv[4]: node
+argv[5]: .
+argv[6]: -d
+argv[7]: 0Initial
+argv[8]: -p
+argv[9]: KAFKA
+Exec: node . -d 0Initial -p KAFKA 
+Monitors out to: NODE_KAFKA_MEM_4.txt
+Run Time: 287917 ms
+Monitored data written to: NODE_KAFKA_MEM_4.txt

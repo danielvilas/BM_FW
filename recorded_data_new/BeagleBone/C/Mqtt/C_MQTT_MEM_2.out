@@ -1,0 +1,13 @@
+argv[0]: lpm
+argv[1]: -o
+argv[2]: C_MQTT_MEM_2.txt
+argv[3]: -s
+argv[4]: ../build/bmc_full
+argv[5]: -d
+argv[6]: 0Initial
+argv[7]: -p
+argv[8]: MQTT
+Exec: ../build/bmc_full -d 0Initial -p MQTT 
+Monitors out to: C_MQTT_MEM_2.txt
+Run Time: 24444 ms
+Monitored data written to: C_MQTT_MEM_2.txt
