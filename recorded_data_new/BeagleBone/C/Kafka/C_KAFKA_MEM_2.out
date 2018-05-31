@@ -19,7 +19,7 @@ Files: 7
 Samples: 2580480
 Packets: 2520
 Messages: 2520
-Time: 18667.062500 ms
+Time: 18403.115234 ms
 argv[0]: lpm
 argv[1]: -o
 argv[2]: C_KAFKA_MEM_2.txt
@@ -31,5 +31,5 @@ argv[7]: -p
 argv[8]: KAFKA
 Exec: ../build/bmc_full -d 0Initial -p KAFKA 
 Monitors out to: C_KAFKA_MEM_2.txt
-Run Time: 18933 ms
+Run Time: 18731 ms
 Monitored data written to: C_KAFKA_MEM_2.txt

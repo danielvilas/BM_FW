@@ -18,7 +18,7 @@ Files: 7
 Samples: 2580480
 Packets: 2520
 Messages: 2520
-Time: 28711.900391 ms
+Time: 31870.945312 ms
 argv[0]: lpm
 argv[1]: -o
 argv[2]: C_SOAP_MEM_4.txt
@@ -30,5 +30,5 @@ argv[7]: -p
 argv[8]: WS
 Exec: ../build/bmc_full -d 0Initial -p WS 
 Monitors out to: C_SOAP_MEM_4.txt
-Run Time: 28850 ms
+Run Time: 31971 ms
 Monitored data written to: C_SOAP_MEM_4.txt
