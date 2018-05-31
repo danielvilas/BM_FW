@@ -27,5 +27,5 @@ protocols:
 languages:
  - name: C
  - name: Node
-# - name: Java
-# - name: Python
+ - name: Java
+ - name: Python
