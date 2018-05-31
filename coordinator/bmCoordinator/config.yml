@@ -1,5 +1,6 @@
 #local config
 sshCmd: /usr/bin/ssh
+scpCmd: /usr/bin/scp
 dataloggerCmd: ../rp_datalogger_dummy/datalogger_dummy
 times: 1
 

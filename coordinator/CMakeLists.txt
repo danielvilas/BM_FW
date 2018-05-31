@@ -6,7 +6,7 @@ set(CMAKE_C_STANDARD 99)
 
 include(libYaml)
 
-set(DATALOGGER_SOURCE_FILES rp_datalogger/dataloger.c)
+set(DATALOGGER_SOURCE_FILES rp_datalogger_dummy/dataloger.c)
 set(CONFIG_SOURCE_FILES bmCoordinator/config.c bmCoordinator/config.h)
 set(COMMON_SOURCE_FILES bmCoordinator/proc_common.c bmCoordinator/proc_common.h)
 set(REMOTE_SOURCE_FILES bmCoordinator/remote_proc.c bmCoordinator/remote_proc.h)

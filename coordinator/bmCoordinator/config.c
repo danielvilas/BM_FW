@@ -6,6 +6,7 @@
 #define STR_PROTOCOLS "protocols"
 #define STR_LANGUAGES "languages"
 #define STR_SSH_CMD "sshCmd"
+#define STR_SCP_CMD "scpCmd"
 #define STR_DATALOGGER_CMD "dataloggerCmd"
 #define STR_NAME_PAR "name"
 #define STR_HOST_PAR "host"
@@ -40,7 +41,7 @@ void debug(yaml_token_t token){
     }
 }
 
-enum {NONE, SSH_CMD, DL_CMD, TIMES_PAR,NAME_PAR, HOST_PAR, USER_PAR, KEY_PAR, PARAM_PAR, CMD_PAR, DIR_PAR} lastParam;
+enum {NONE, SSH_CMD,SCP_CMD, DL_CMD, TIMES_PAR,NAME_PAR, HOST_PAR, USER_PAR, KEY_PAR, PARAM_PAR, CMD_PAR, DIR_PAR} lastParam;
 enum {TOK_NONE, KEY,VALUE} lastToken;
 enum eMode {
     MODE_START=0,
@@ -95,6 +96,8 @@ void parseGlobal(yaml_token_t token, pConfig cfg){
                 lastParam=DL_CMD;
             }else if(strcmp(STR_TIMES_PAR,(const char*)token.data.scalar.value)==0){
                 lastParam=TIMES_PAR;
+            }else if(strcmp(STR_SCP_CMD,(const char*)token.data.scalar.value)==0){
+                lastParam=SCP_CMD;
             }
             return;
         }
@@ -105,6 +108,8 @@ void parseGlobal(yaml_token_t token, pConfig cfg){
                 cfg->datalogerCmd=strClone(token.data.scalar.value);
             }else if(lastParam==TIMES_PAR){
                 cfg->times=atoi((const char*)token.data.scalar.value);
+            }else if(lastParam==SCP_CMD){
+                cfg->scpCmd=strClone(token.data.scalar.value);
             }
             return;
             lastToken=TOK_NONE;
@@ -344,6 +349,7 @@ int readYaml (char filename[], pConfig cfg){
 
 void printConfig(pConfig cfg){
     printf(STR_SSH_CMD": %s\n",cfg->sshCmd);
+    printf(STR_SCP_CMD": %s\n",cfg->scpCmd);
     printf(STR_DATALOGGER_CMD": %s\n",cfg->datalogerCmd);
     printf(STR_TIMES_PAR": %i\n",cfg->times);
     printf(STR_PLATFORMS":\n");

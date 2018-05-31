@@ -31,6 +31,7 @@ struct sLang{
 
 struct sConfig{
     char* sshCmd;
+    char* scpCmd;
     char* datalogerCmd;
     int times;
     pPlatform firstPlatform;
