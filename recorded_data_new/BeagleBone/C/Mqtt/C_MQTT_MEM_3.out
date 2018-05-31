@@ -9,5 +9,5 @@ argv[7]: -p
 argv[8]: MQTT
 Exec: ../build/bmc_full -d 0Initial -p MQTT 
 Monitors out to: C_MQTT_MEM_3.txt
-Run Time: 22155 ms
+Run Time: 21939 ms
 Monitored data written to: C_MQTT_MEM_3.txt

@@ -18,7 +18,7 @@ Files: 7
 Samples: 2580480
 Packets: 2520
 Messages: 2520
-Time: 23850.181641 ms
+Time: 23373.029297 ms
 argv[0]: lpm
 argv[1]: -o
 argv[2]: C_REST_MEM_3.txt
@@ -30,6 +30,5 @@ argv[7]: -p
 argv[8]: REST
 Exec: ../build/bmc_full -d 0Initial -p REST 
 Monitors out to: C_REST_MEM_3.txt
-Error is 2
-Run Time: 24045 ms
+Run Time: 23537 ms
 Monitored data written to: C_REST_MEM_3.txt
