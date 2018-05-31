@@ -12,7 +12,7 @@ estimation:
 # - name: display name
 platforms:
  - name: RaspberryPi
-# - name: BeagleBone
+ - name: BeagleBone
 
 #Data of the protocols
 # - name: display name
