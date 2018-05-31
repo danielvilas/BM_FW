@@ -30,7 +30,8 @@ void fillRemoteProc(pProcess proc, pConfig cfg, pPlatform plat, pLang lang, pPro
     w=sprintf(tmp,tmpCmd,lang->dir,fileWoExt,lang->cmd);
     tmp[w]='\0';
     w=sprintf(cmd,tmp,proto->param);
-    
+    tmp[w]='\0';
+
     proc->cmd=cfg->sshCmd;
     proc->args =(char**) malloc(7*sizeof(char*));
     proc->args[0]=cfg->sshCmd;

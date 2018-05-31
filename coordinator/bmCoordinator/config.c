@@ -49,7 +49,7 @@ enum eMode {
     MODE_PLATFORMS,
     MODE_PROTOCOLS,
     MODE_LANGS,
-    MODE_UNKNOWK
+    //MODE_UNKNOWK
 } parser_mode;
 enum{PLAT_NONE,PLAT_START,PLAT_DATA} platform_mode;
 pPlatform lastPlatform;
@@ -57,7 +57,7 @@ pProtocol lastProto;
 pLang lastLang;
 
 char* strClone(yaml_char_t* in){
-    int s= strlen((const char*)in);
+    size_t s= strlen((const char*)in);
     char* ret = malloc((s+1)*sizeof(char));
     memcpy(ret,in,s);
     ret[s]='\0';
