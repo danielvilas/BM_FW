@@ -186,6 +186,15 @@ void parseEstimation(yaml_token_t token, pConfig cfg){
     debug(token);
 }
 
+int countNames(pName ptr){
+    int cnt = 0;
+    while(ptr!=NULL){
+        cnt++;
+        ptr=ptr->next;
+    }
+    return cnt;
+}
+
 int readYaml (char filename[], pConfig cfg){
     FILE *fh = fopen(filename, "r");
   yaml_parser_t parser;
@@ -238,6 +247,9 @@ int readYaml (char filename[], pConfig cfg){
   /* Cleanup */
   yaml_parser_delete(&parser);
   fclose(fh);
+  cfg->nLanguages=countNames(cfg->firstLang);
+  cfg->nPlatforms=countNames(cfg->firstPlatform);
+  cfg->nProtocols=countNames(cfg->firstProtocol);
   return 0;
 }
 

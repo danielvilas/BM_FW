@@ -270,17 +270,17 @@ void createCurrentChart(lxw_workbook* workbook, lxw_worksheet *worksheet, pPower
     lxw_chart_series*  series = chart_add_series(chart, NULL, NULL);
     chart_series_set_categories(series, filename, START_ROW, FULL_TIME_COL, fsize+1, FULL_TIME_COL);
     chart_series_set_values(series,     filename, START_ROW, FULL_CURRENT_COL, fsize+1, FULL_CURRENT_COL);
-    chart_series_set_name_range(series, filename, 0, 0);
+    chart_series_set_name_range(series, filename, 0, FULL_TIME_COL);
 
     series = chart_add_series(chart, NULL, NULL);
     chart_series_set_categories(series, filename, START_ROW, GROUP_TIME_COL, gsize+1, GROUP_TIME_COL);
     chart_series_set_values(series,     filename, START_ROW, GROUP_CURRENT_COL, gsize+1, GROUP_CURRENT_COL);
-    chart_series_set_name_range(series, filename, 0, 3);
+    chart_series_set_name_range(series, filename, 0, GROUP_TIME_COL);
 
     series = chart_add_series(chart, NULL, NULL);
     chart_series_set_categories(series, filename, START_ROW, AVG_TIME_COL, START_ROW+6, AVG_TIME_COL);
     chart_series_set_values(series,     filename, START_ROW, AVG_CURRENT_COL, START_ROW+6, AVG_CURRENT_COL);
-    chart_series_set_name_range(series, filename, 0, 6);
+    chart_series_set_name_range(series, filename, 0, AVG_TIME_COL);
 
 
     //Field string

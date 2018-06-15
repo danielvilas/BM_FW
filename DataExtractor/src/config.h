@@ -15,6 +15,9 @@ struct sConfig{
     pName firstPlatform;
     pName firstProtocol;
     pName firstLang;
+    int nPlatforms;
+    int nProtocols;
+    int nLanguages;
 };
 
 typedef struct sConfig tConfig;
