@@ -214,3 +214,22 @@ pExecuteInfo executeOne(char* dir,pConfig cfg, pName plat, pName lang, pName pro
     ret->proto=proto;
     return ret;
 }
+
+#define EXTRACT_CODE(field,data) double extract_##field (pExecuteInfo info){ \
+    return info->data.field; \
+} \
+
+EXTRACT_CODE(memAvgKb,mem)
+EXTRACT_CODE(memMaxKb,mem)
+EXTRACT_CODE(cpuAvg,mem)
+EXTRACT_CODE(maxCpu,mem)
+EXTRACT_CODE(netOutKb,mem)
+EXTRACT_CODE(netInKb,mem)
+EXTRACT_CODE(steadyCurrent_mA,power);
+EXTRACT_CODE(runCurrent_mA,power);
+EXTRACT_CODE(runEnergy_J,power);
+EXTRACT_CODE(runEnergy_mAs,power);
+EXTRACT_CODE(runEnergy_mAh,power);
+EXTRACT_CODE(time_ms,power);
+EXTRACT_CODE(cycleTime_ms,power);
+EXTRACT_CODE(estEnergy_mAh,power);

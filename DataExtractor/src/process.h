@@ -25,4 +25,21 @@ void fillSumaryWorkSheet(lxw_worksheet *worksheet,
                          pMemInfo mem_avg, pPowerInfo pwr_avg,
                          int col);
 
+
+#define EXTRACT(field) double extract_##field(pExecuteInfo info);
+EXTRACT(memAvgKb);
+EXTRACT(memMaxKb);
+EXTRACT(cpuAvg);
+EXTRACT(maxCpu);
+EXTRACT(netOutKb);
+EXTRACT(netInKb);
+
+EXTRACT(steadyCurrent_mA);
+EXTRACT(runCurrent_mA);
+EXTRACT(runEnergy_J);
+EXTRACT(runEnergy_mAs);
+EXTRACT(runEnergy_mAh);
+EXTRACT(time_ms);
+EXTRACT(cycleTime_ms);
+EXTRACT(estEnergy_mAh);
 #endif //DATAEXTRACTOR_PROCESS_H

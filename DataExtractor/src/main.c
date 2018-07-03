@@ -7,8 +7,7 @@
 #include "memory.h"
 #include "power.h"
 #include "process.h"
-
-
+#include "report.h"
 
 void execute(char* dir, pConfig cfg) {
     pName plat = cfg->firstPlatform;
@@ -58,27 +57,43 @@ void execute(char* dir, pConfig cfg) {
         workbook_close(plat_workbook);
         printf("Report: %s saved\n",filePath);
     }
+    tReportInfo avg,max;
+    fillReportCfg(&avg, extract_memAvgKb, "Memory Average","KB","MemAvg");
+    fillReportCfg(&max,extract_memMaxKb,"Max Memory","KB","MemMax");
+    createDoubleReport(cfg,workbook,table, "Memory",&avg,&max);
 
-    lxw_worksheet *mem_worksheet = workbook_add_worksheet(workbook, "Memory");
-    for(int iProto=0;iProto<cfg->nProtocols;iProto++){
-        pExecuteInfo* row = table[iProto];
-        worksheet_write_string (mem_worksheet, iProto+1, 0, row[0]->proto->name, NULL);
-        for(int iLang=0;iLang<cfg->nLanguages;iLang++){
-            for(int iPlat=0;iPlat<cfg->nPlatforms;iPlat++){
-                int cIndex=iLang*cfg->nPlatforms+iPlat;
-                pExecuteInfo  info = row[cIndex];
-                char cName[255];
-                sprintf(cName,"%s-%s",info->lang->name, info->plat->name);
-                worksheet_write_string (mem_worksheet, 0, cIndex+1, cName, NULL);
-                worksheet_write_number(mem_worksheet,iProto+1,cIndex+1,info->mem.cpuAvg,NULL);
 
-            }
-        }
-    }
+    fillReportCfg(&avg, extract_cpuAvg, "CPU Average","% CPU","CPU Avg");
+    fillReportCfg(&max,extract_maxCpu,"Max CPU","% CPU","CPU Max");
+    createDoubleReport(cfg,workbook,table, "Cpu",&avg,&max);
+
+    fillReportCfg(&avg, extract_netOutKb, "Out","KB","Out");
+    fillReportCfg(&max,extract_netInKb,"In","KB","In");
+    createDoubleReport(cfg,workbook,table, "NetWork",&avg,&max);
+
+    fillReportCfg(&avg, extract_steadyCurrent_mA, "Steady State","mA","Steady");
+    fillReportCfg(&max,extract_runCurrent_mA,"Run State","mA","Run");
+    createDoubleReport(cfg,workbook,table, "Current",&avg,&max);
+
+    fillReportCfg(&avg, extract_runEnergy_J, "Energy in Jules","Jules","Jules");
+    fillReportCfg(&max,extract_runEnergy_mAs,"Energy in mAs","mAs","mAs");
+    createDoubleReport(cfg,workbook,table, "Energy",&avg,&max);
+
+    fillReportCfg(&avg,extract_runEnergy_mAh,"Energy","mAh","mAh");
+    createReport(cfg,workbook,table,"Energy mAh",&avg);
+
+    fillReportCfg(&avg, extract_time_ms, "Total Time","ms","Total");
+    fillReportCfg(&max,extract_cycleTime_ms,"One Cycle","ms","Cycle");
+    createDoubleReport(cfg,workbook,table, "Time",&avg,&max);
+
+    fillReportCfg(&avg,extract_estEnergy_mAh,"Estimated Energy","mAh","Estimated");
+    createReport(cfg,workbook,table,"Estimated Energy",&avg);
+
 
     workbook_close(workbook);
     printf("Report: %s/REPORT.xlsx saved\n",dir);
 }
+
 
 int main(int argc, char** argv) {
     printf("BenchMark Framework Data Parser!\n");
