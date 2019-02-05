@@ -58,35 +58,35 @@ void execute(char* dir, pConfig cfg) {
         printf("Report: %s saved\n",filePath);
     }
     tReportInfo avg,max;
-    fillReportCfg(&avg, extract_memAvgKb, "Memory Average","KB","MemAvg");
+    fillReportCfg(&avg, extract_memAvgKb, "Memory usage Average of all measures","Memory usage (KB)","MemAvg");
     fillReportCfg(&max,extract_memMaxKb,"Max Memory","KB","MemMax");
     createDoubleReport(cfg,workbook,table, "Memory",&avg,&max);
 
 
-    fillReportCfg(&avg, extract_cpuAvg, "CPU Average","% CPU","CPU Avg");
+    fillReportCfg(&avg, extract_cpuAvg, "CPU usage Average of all measures","CPU usage (%%)","CPU Avg");
     fillReportCfg(&max,extract_maxCpu,"Max CPU","% CPU","CPU Max");
     createDoubleReport(cfg,workbook,table, "Cpu",&avg,&max);
 
-    fillReportCfg(&avg, extract_netOutKb, "Out","KB","Out");
-    fillReportCfg(&max,extract_netInKb,"In","KB","In");
+    fillReportCfg(&avg, extract_netOutKb, "Network usage Out data","Data sent (KB)","Out");
+    fillReportCfg(&max,extract_netInKb,"Network usage In data","Data received (KB)","In");
     createDoubleReport(cfg,workbook,table, "NetWork",&avg,&max);
 
-    fillReportCfg(&avg, extract_steadyCurrent_mA, "Steady State","mA","Steady");
-    fillReportCfg(&max,extract_runCurrent_mA,"Run State","mA","Run");
+    fillReportCfg(&avg, extract_steadyCurrent_mA, "Current in Wait state","Current (mA)","Steady");
+    fillReportCfg(&max,extract_runCurrent_mA,"Current in Run State","Current (mA)","Run");
     createDoubleReport(cfg,workbook,table, "Current",&avg,&max);
 
     fillReportCfg(&avg, extract_runEnergy_J, "Energy in Jules","Jules","Jules");
     fillReportCfg(&max,extract_runEnergy_mAs,"Energy in mAs","mAs","mAs");
     createDoubleReport(cfg,workbook,table, "Energy",&avg,&max);
 
-    fillReportCfg(&avg,extract_runEnergy_mAh,"Energy","mAh","mAh");
+    fillReportCfg(&avg,extract_runEnergy_mAh,"Energy usage","Energy (mAh)","mAh");
     createReport(cfg,workbook,table,"Energy mAh",&avg);
 
     fillReportCfg(&avg, extract_time_ms, "Total Time","ms","Total");
-    fillReportCfg(&max,extract_cycleTime_ms,"One Cycle","ms","Cycle");
+    fillReportCfg(&max,extract_cycleTime_ms,"One Cycle time per protocol","Cycle time(ms)","Cycle");
     createDoubleReport(cfg,workbook,table, "Time",&avg,&max);
 
-    fillReportCfg(&avg,extract_estEnergy_mAh,"Estimated Energy","mAh","Estimated");
+    fillReportCfg(&avg,extract_estEnergy_mAh,"Estimated Energy","Energy (mAh)","Estimated");
     createReport(cfg,workbook,table,"Estimated Energy",&avg);
 
 
