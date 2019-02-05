@@ -30,7 +30,7 @@ void readOne(uint32_t buff_size,float *buff_c1, float *buff_c2, long long curren
         rp_AcqGetTriggerState(&state);
         if(state == RP_TRIG_STATE_TRIGGERED){
             //printf("Trig sleep\n");
-            usleep(10);
+            usleep(1000);
             //printf("Trig sleep\n");
             break;
         }
@@ -70,13 +70,13 @@ int main(int argc, char **argv){
     signal(SIGTERM, &on_sigint);
     siginterrupt(SIGTERM, true);
 
-    uint32_t buff_size = 64;
+    uint32_t buff_size = 128;
     float *buff_c1 = (float *)malloc(buff_size * sizeof(float));
     float *buff_c2 = (float *)malloc(buff_size * sizeof(float));
 
     rp_DpinSetDirection (RP_DIO0_P, RP_IN);
     rp_AcqReset();
-    rp_AcqSetDecimation(8);
+    rp_AcqSetDecimation(3);
     rp_AcqSetTriggerDelay(0);
 
    

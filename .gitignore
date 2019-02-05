@@ -1,2 +1,8 @@
 
 \.DS_Store
+/DataExtractor/cmake-build-debug
+/DataExtractor/.idea
+/recorded_data/**/*.json
+/recorded_data/**/*.xlsx
+/recorded_data_new/**/*.json
+/recorded_data_new/**/*.xlsx 

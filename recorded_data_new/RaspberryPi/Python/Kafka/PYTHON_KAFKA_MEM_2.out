@@ -1,0 +1,34 @@
+Server: server.local
+Continous: False
+DataSet: 0Initial
+Protocol: KAFKA
+There are 2 children with names ['1001', '1002']
+{'listener_security_protocol_map': {'PLAINTEXT': 'PLAINTEXT'}, 'endpoints': ['PLAINTEXT://192.168.1.3:32769'], 'jmx_port': 1099, 'host': '192.168.1.3', 'timestamp': '1527452377714', 'port': 32769, 'version': 4}
+{'listener_security_protocol_map': {'PLAINTEXT': 'PLAINTEXT'}, 'endpoints': ['PLAINTEXT://192.168.1.3:32768'], 'jmx_port': 1098, 'host': '192.168.1.3', 'timestamp': '1527452377642', 'port': 32768, 'version': 4}
+Reading DataSet: ./data/sets/0Initial
+./data/sets/0Initial/data-20170716-15.csv
+./data/sets/0Initial/data-20170716-16.csv
+./data/sets/0Initial/data-20170716-17.csv
+./data/sets/0Initial/data-20170716-18.csv
+./data/sets/0Initial/data-20170716-19.csv
+./data/sets/0Initial/data-20170716-20.csv
+./data/sets/0Initial/data-20170716-21.csv
+Files: 7
+Samples: 2580480
+Packets: 2520
+Messages: 2520
+Time: 361514.513258ms
+argv[0]: lpm
+argv[1]: -o
+argv[2]: PYTHON_KAFKA_MEM_2.txt
+argv[3]: -s
+argv[4]: python3
+argv[5]: main.py
+argv[6]: -d
+argv[7]: 0Initial
+argv[8]: -p
+argv[9]: KAFKA
+Exec: python3 main.py -d 0Initial -p KAFKA 
+Monitors out to: PYTHON_KAFKA_MEM_2.txt
+Run Time: 364074 ms
+Monitored data written to: PYTHON_KAFKA_MEM_2.txt
