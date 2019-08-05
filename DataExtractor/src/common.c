@@ -27,6 +27,7 @@ int fillNameSuffixIndex(char* dest, pName lang, pName proto, int i,char * suffix
     return w;
 }
 
+
 int fillName(char* dest, pName lang, pName proto ){
     int w=sprintf(dest,"%s_%s",lang->name,proto->name);
     dest[w]='\0';

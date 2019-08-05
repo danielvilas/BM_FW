@@ -41,6 +41,6 @@ struct sPowerInfo{
 };
 STRUCT_TYPES(PowerInfo)
 pPowerInfo parsePowerData(char* dir,pName plat, pName lang, pName proto, int i);
-void createPowerSheet(lxw_workbook* workbook,char* filename, pPowerInfo pwr);
+
 
 #endif //DATAEXTRACTOR_POWER_H

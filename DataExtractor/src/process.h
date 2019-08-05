@@ -18,13 +18,11 @@ struct sExecuteInfo{
 STRUCT_TYPES(ExecuteInfo)
 VECTOR(ExecuteInfo)
 
-pExecuteInfo executeOne(char* dir, pConfig cfg, pName plat, pName lang, pName proto );
-lxw_worksheet* createSumaryWorkSheet(lxw_workbook* workbook);
-void fillSumaryWorkSheet(lxw_worksheet *worksheet,
-                         pName plat, pName lang, pName proto,
-                         pMemInfo mem_avg, pPowerInfo pwr_avg,
-                         int col);
-
+void initAvg(pPowerInfo pwr_avg, pMemInfo mem_avg);
+void finishAvg(pConfig cfg, pPowerInfo pwr_avg, pMemInfo mem_avg, int i);
+void updateMemAvgAndFree(pMemInfo mem_avg, pMemInfo mem);
+void updatePowerAvgAndFree(pPowerInfo pwr_avg, pPowerInfo pwr);
+void printJsonData(char*dir, pName plat, pName lang, pName proto,pMemInfo mem_avg,pPowerInfo pwr_avg);
 
 #define EXTRACT(field) double extract_##field(pExecuteInfo info);
 EXTRACT(memAvgKb);

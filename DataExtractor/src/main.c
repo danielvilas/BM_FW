@@ -8,6 +8,7 @@
 #include "power.h"
 #include "process.h"
 #include "report.h"
+#include "xls/proccessXls.h"
 
 void execute(char* dir, pConfig cfg) {
     pName plat = cfg->firstPlatform;
