@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-extractor-chronograf
+  namespace: bm-fw
+  labels:
+    app: data-extractor-chronograf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-extractor-chronograf
+  template:
+    metadata:
+      labels:
+        app: data-extractor-chronograf
+    spec:
+      containers:
+      - name: chronograf
+        image: chronograf:1.7.16
+        volumeMounts:
+        - mountPath: /var/lib/chronograf
+          name: chronograf-storage
+      volumes:
+      - name: chronograf-storage
+        glusterfs:
+          endpoints: glusterfs-cluster
+          path: gv_bm_fw/chronograf
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-extractor-chronograf
+  namespace: bm-fw
+spec:
+  ports:
+  - port: 8888
+    targetPort: 8888
+    name: chronograf-http
+  selector:
+    app: data-extractor-chronograf
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: data-extractor-chronograf
+  namespace: bm-fw
+spec:
+  rules:
+  - host: chronograf.bm-fw.apps.picluster
+    http:
+      paths:
+      - backend:
+          serviceName: data-extractor-chronograf
+          servicePort: 8888

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-extractor-influxdb
+  namespace: bm-fw
+  labels:
+    app: data-extractor-influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-extractor-influxdb
+  template:
+    metadata:
+      labels:
+        app: data-extractor-influxdb
+    spec:
+      containers:
+      - name: influxdb
+        image: influxdb:1.7.9
+        volumeMounts:
+        - mountPath: /var/lib/influxdb
+          name: influxdb-storage
+      volumes:
+      - name: influxdb-storage
+        glusterfs:
+          endpoints: glusterfs-cluster
+          path: gv_bm_fw/influxdb
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-extractor-influxdb
+  namespace: bm-fw
+spec:
+  ports:
+  - port: 8086
+    targetPort: 8086
+    name: influxdb-api
+  - port: 8083
+    targetPort: 8083
+    name: influxdb-udp-service
+  - port: 8088
+    targetPort: 8088
+    name: influxdb-cli-rpc
+  selector:
+    app: data-extractor-influxdb

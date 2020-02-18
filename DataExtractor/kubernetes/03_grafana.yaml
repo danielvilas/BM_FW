@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-extractor-grafana
+  namespace: bm-fw
+  labels:
+    app: data-extractor-grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-extractor-grafana
+  template:
+    metadata:
+      labels:
+        app: data-extractor-grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:6.6.1
+        env:
+          - name: GF_PATHS_DATA 
+            value: /grafana-data
+        volumeMounts:
+          - mountPath: /grafana-data/
+            name: grafana-storage
+      volumes:
+      - name: grafana-storage
+        glusterfs:
+          endpoints: glusterfs-cluster
+          path: gv_bm_fw/grafana
+          readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-extractor-grafana
+  namespace: bm-fw
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+    name: grafana-http
+  selector:
+    app: data-extractor-grafana
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: data-extractor-grafana
+  namespace: bm-fw
+spec:
+  rules:
+  - host: grafana.bm-fw.apps.picluster
+    http:
+      paths:
+      - backend:
+          serviceName: data-extractor-grafana
+          servicePort: 3000
