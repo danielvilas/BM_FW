@@ -22,7 +22,7 @@ spec:
           - name: GF_PATHS_DATA 
             value: /grafana-data
         volumeMounts:
-          - mountPath: /grafana-data/
+          - mountPath: /grafana-data
             name: grafana-storage
       volumes:
       - name: grafana-storage

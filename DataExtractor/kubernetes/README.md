@@ -26,3 +26,9 @@ kubectl apply -f 02_chronograf.yaml
 kubectl apply -f 03_grafana.yaml 
 
 ```
+
+# CheatSheet
+```
+ssh  -p xxx -D 127.0.0.1:2424 user@host
+https_proxy=socks5://localhost:2424 kubectl -n bm-fw 
+```
