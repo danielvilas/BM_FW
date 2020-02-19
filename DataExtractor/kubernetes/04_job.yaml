@@ -1,0 +1,75 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-extractor-job
+  namespace: bm-fw
+  labels:
+    app: data-extractor-job
+spec:
+  parallelism: 1    
+  completions: 1
+  backoffLimit: 1
+  template:         
+    metadata:
+      name: data-extractor-job
+    spec:
+      volumes:
+      - name: data-extractor-scripts-volume
+        configMap:
+          name: data-extractor-scripts
+      - name: job-storage
+        glusterfs:
+          endpoints: glusterfs-cluster
+          path: gv_bm_fw/job
+          readOnly: false
+      containers:
+      - name: data-extractor-job
+        image: vookimedlo/ubuntu-gcc:gcc_eoan
+        volumeMounts:
+          - mountPath: /data-extractor-scripts
+            name: data-extractor-scripts-volume
+          - mountPath: /job-data
+            name: job-storage
+        command:
+        - /bin/sh
+        - /data-extractor-scripts/data-extractor-job.sh
+      restartPolicy: Never
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name:  data-extractor-scripts
+  namespace: bm-fw
+  labels:
+    app: data-extractor-job
+data:
+    data-extractor-job.sh: |
+      echo "Environment"
+      env
+      echo "------"
+      sudo apt-get update
+      sudo apt-get install -y libyaml-dev zlib1g-dev
+      cd /job-data
+      if [ ! -d libxlsxwriter ]; then
+        git clone https://github.com/jmcnamara/libxlsxwriter.git
+      fi
+      cd libxlsxwriter
+      make
+      sudo make install
+
+      cd /job-data
+      if [ ! -d BM_FW ]; then
+        git clone https://github.com/danielvilas/BM_FW
+        cd BM_FW
+        git submodule init
+        git submodule update
+        cd ..
+      fi
+      cd BM_FW/DataExtractor
+      ls
+      mkdir -p build
+      cd build
+      cmake ..
+      make
+      cd ..
+      ./build/DataExporterInflux config.yml 
