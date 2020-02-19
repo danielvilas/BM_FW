@@ -36,6 +36,10 @@ spec:
         env:
           - name: INFLUXDB_HOST
             value: "data-extractor-influxdb"
+          - name: INFLUXDB_PORT
+            value: "8086"
+          - name: INFLUXDB_DB
+            value: "bmfw"
       restartPolicy: Never
 ---
 apiVersion: v1
@@ -68,11 +72,16 @@ data:
         git submodule update
         cd ..
       fi
-      cd BM_FW/DataExtractor
+      cd BM_FW
+      git pull
+      cd DataExtractor
       ls
       mkdir -p build
       cd build
       cmake ..
       make
       cd ..
-      ./build/DataExporterInflux config.yml 
+      ./build/DataExporterInflux config.yml
+      curl http://$INFLUXDB_HOST:$INFLUXDB_PORT
+      echo ./build/DataExporterInflux config.yml ../recorded_data_new/
+      

@@ -4,6 +4,10 @@
 
 #include "processInflux.h"
 #include "influxdb.h"
+#include "sys/socket.h"
+#include "errno.h" //For errno - the error number
+#include "netdb.h"	//hostent
+#include "arpa/inet.h"
 
 
 void sendMemory(tName *plat, tName *lang, tName *proto, int i,
@@ -42,6 +46,18 @@ long long findStart(pvPowerInfoEntry data) {
     }
     if(getenv(ENV_INFLUXDB_PWD)!=NULL){
         client.pwd=getenv(ENV_INFLUXDB_PWD);
+    }
+
+    if( inet_addr(client.host) == INADDR_NONE) {
+        struct hostent *he;
+        struct in_addr **addr_list;
+        if ( (he = gethostbyname( client.host ) ) == NULL) {
+		    // get the host info
+		    herror("gethostbyname");
+		    return client;
+	    }
+        addr_list = (struct in_addr **) he->h_addr_list;
+        client.host = inet_ntoa(*addr_list[0]);
     }
     return client;
  }
