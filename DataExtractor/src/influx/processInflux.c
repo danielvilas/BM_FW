@@ -21,6 +21,31 @@ long long findStart(pvPowerInfoEntry data) {
     return data->data[j - 1].time;
 }
 
+ influx_client_t getClient(){
+    influx_client_t client;
+    client.host = "127.0.0.1";
+    client.port = 8086;
+    client.db = "bmfw";
+    client.usr = "";
+    client.pwd = "";
+    if(getenv(ENV_INFLUXDB_HOST)!=NULL){
+        client.host=getenv(ENV_INFLUXDB_HOST);
+    }
+    if(getenv(ENV_INFLUXDB_PORT)!=NULL){
+        client.port=atoi(getenv(ENV_INFLUXDB_PORT));
+    }
+    if(getenv(ENV_INFLUXDB_DB)!=NULL){
+        client.db=getenv(ENV_INFLUXDB_DB);
+    }
+    if(getenv(ENV_INFLUXDB_USR)!=NULL){
+        client.usr=getenv(ENV_INFLUXDB_USR);
+    }
+    if(getenv(ENV_INFLUXDB_PWD)!=NULL){
+        client.pwd=getenv(ENV_INFLUXDB_PWD);
+    }
+    return client;
+ }
+
 pExecuteInfo executeOneInflux(char *dir, pConfig cfg, pName plat, pName lang, pName proto) {
     printf("Processing %s %s %s\n", plat->name, lang->name, proto->name);
     //For each File
@@ -28,12 +53,7 @@ pExecuteInfo executeOneInflux(char *dir, pConfig cfg, pName plat, pName lang, pN
     tPowerInfo pwr_avg;
     tMemInfo mem_avg;
 
-    influx_client_t client;
-    client.host = "127.0.0.1";
-    client.port = 8086;
-    client.db = "bmfw";
-    client.usr = "";
-    client.pwd = "";
+    influx_client_t client = getClient(); 
 
 
     initAvg(&pwr_avg, &mem_avg);

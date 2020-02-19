@@ -31,8 +31,11 @@ spec:
           - mountPath: /job-data
             name: job-storage
         command:
-        - /bin/sh
-        - /data-extractor-scripts/data-extractor-job.sh
+          - /bin/sh
+          - /data-extractor-scripts/data-extractor-job.sh
+        env:
+          - name: INFLUXDB_HOST
+            value: "data-extractor-influxdb"
       restartPolicy: Never
 ---
 apiVersion: v1

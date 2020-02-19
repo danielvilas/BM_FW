@@ -10,6 +10,17 @@
 #include "process.h"
 #include "influx/processInflux.h"
 
+void printInfluxConfig(){
+    influx_client_t client = getClient();
+    printf("\n----- Influx Config -----\n");
+    printf("host\t%s\t"ENV_INFLUXDB_HOST"=%s\n",client.host,getenv(ENV_INFLUXDB_HOST));
+    printf("port\t%i\t"ENV_INFLUXDB_PORT"=%s\n",client.port,getenv(ENV_INFLUXDB_PORT));
+    printf("db\t%s\t"ENV_INFLUXDB_DB"=%s\n",client.db,getenv(ENV_INFLUXDB_DB));
+    printf("usr\t%s\t"ENV_INFLUXDB_USR"=%s\n",client.usr,getenv(ENV_INFLUXDB_USR));
+    printf("pwd\t%s\t"ENV_INFLUXDB_PWD"=%s\n",client.pwd,getenv(ENV_INFLUXDB_PWD));
+    
+}
+
 void execute(char* dir, pConfig cfg) {
     pName plat = cfg->firstPlatform;
 
@@ -60,6 +71,7 @@ int main(int argc, char** argv) {
     }
     if(argc<3){
         printConfig(&cfg);
+        printInfluxConfig();
     }else{
         //executeOne(argv[2],cfg.firstPlatform,cfg.firstLang,cfg.firstProtocol);
         execute(argv[2],&cfg);

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.0)
 project(DataExtractor LANGUAGES C VERSION 0.1.0)
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 set(CMAKE_C_STANDARD 99)
@@ -27,7 +27,7 @@ if(_VCPKG_ROOT_DIR)
 endif()
 #target_include_directories(DataExtractor )
 
-set(INFLUXDB_SOURCE_FILES src/influx/influxdb.h src/influx/processInflux.c src/influx/processInflux.h)
+set(INFLUXDB_SOURCE_FILES src/influx/influxdb.c src/influx/influxdb.h src/influx/processInflux.c src/influx/processInflux.h)
 
 add_executable(DataExporterInflux ${CONFIG_SOURCE_FILES} ${INFLUXDB_SOURCE_FILES}
         ${MEMORY_SOURCE_FILES}
