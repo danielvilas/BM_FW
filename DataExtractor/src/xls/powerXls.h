@@ -4,8 +4,8 @@
 
 #ifndef DATAEXTRACTOR_POWERXLS_H
 #define DATAEXTRACTOR_POWERXLS_H
-#import "../common.h"
-#import "../power.h"
+#include "../common.h"
+#include "../power.h"
 
 void createPowerSheet(lxw_workbook* workbook,char* filename, pPowerInfo pwr);
 

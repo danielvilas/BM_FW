@@ -1,4 +1,5 @@
 #include "influxdb.h"
+#include <stdlib.h>
 
 int post_http_send_line(influx_client_t *c, char *buf, int len)
 {
