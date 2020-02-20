@@ -64,6 +64,7 @@ long long findStart(pvPowerInfoEntry data) {
 
 pExecuteInfo executeOneInflux(char *dir, pConfig cfg, pName plat, pName lang, pName proto) {
     printf("Processing %s %s %s\n", plat->name, lang->name, proto->name);
+    fflush( stdout );
     //For each File
     int i = 1;
     tPowerInfo pwr_avg;
