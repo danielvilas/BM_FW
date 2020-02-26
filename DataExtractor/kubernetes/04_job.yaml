@@ -40,6 +40,13 @@ spec:
             value: "8086"
           - name: INFLUXDB_DB
             value: "bmfw"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "500m"
+          limits:
+            memory: "128Mi"
+            cpu: "1000m"
       restartPolicy: Never
 ---
 apiVersion: v1
@@ -51,9 +58,10 @@ metadata:
     app: data-extractor-job
 data:
     data-extractor-job.sh: |
-      echo "Environment"
+      echo "--- Environment ---"
       env
-      echo "------"
+      echo ""
+      echo "--- Download libs ---"
       sudo apt-get update
       sudo apt-get install -y libyaml-dev zlib1g-dev
       cd /job-data
@@ -63,7 +71,8 @@ data:
       cd libxlsxwriter
       make
       sudo make install
-
+      echo ""
+      echo "--- Download Code ---"
       cd /job-data
       if [ ! -d BM_FW ]; then
         git clone https://github.com/danielvilas/BM_FW
@@ -75,13 +84,23 @@ data:
       cd BM_FW
       git pull
       cd DataExtractor
-      ls
+      echo ""
+      echo "--- Building Code ---"
       mkdir -p build
       cd build
       cmake ..
       make
       cd ..
-      ./build/DataExporterInflux config.yml
-      curl http://$INFLUXDB_HOST:$INFLUXDB_PORT
-      echo ./build/DataExporterInflux config.yml ../recorded_data_new/
+      echo ""
+      echo "--- Cleaning Old Data ---"
+      curl http://$INFLUXDB_HOST:$INFLUXDB_PORT/query -d q="DROP DATABASE ${INFLUXDB_DB}"
+      curl http://$INFLUXDB_HOST:$INFLUXDB_PORT/query -d q="CREATE DATABASE ${INFLUXDB_DB}"
+      echo ""
+      echo "--- Printing Config ---"
+      ./build/DataExporterInflux ../recorded_data_new/dataExtractor.yml 
+      echo ""
+      echo "--- Processing Data ---"
+      ./build/DataExporterInflux ../recorded_data_new/dataExtractor.yml ../recorded_data_new/
+
+      echo "done"
       
